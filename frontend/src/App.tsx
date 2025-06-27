@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { ConfigProvider, Layout, Menu, Breadcrumb } from 'antd';
-import { DatabaseOutlined, MessageOutlined, BarChartOutlined } from '@ant-design/icons';
+import { DatabaseOutlined, MessageOutlined, BarChartOutlined, FlagOutlined } from '@ant-design/icons';
 import zhCN from 'antd/locale/zh_CN';
 
 import TableList from './components/TableList';
 import ChatInterface from './components/ChatInterface';
 import Statistics from './components/Statistics';
+import CaseAnalysis from './components/CaseAnalysis';
 
 import './App.css';
 
@@ -35,6 +36,12 @@ const AppContent: React.FC = () => {
       icon: <BarChartOutlined />,
       label: '统计信息',
       path: '/statistics'
+    },
+    {
+      key: 'case-analysis',
+      icon: <FlagOutlined />,
+      label: '案件分解',
+      path: '/case-analysis'
     }
   ];
 
@@ -45,17 +52,17 @@ const AppContent: React.FC = () => {
     return item?.key || 'tables';
   };
 
-  const getBreadcrumbItems = () => {
-    const currentKey = getCurrentKey();
-    const item = menuItems.find(item => item.key === currentKey);
-    return [
-      { title: '数据目录编目系统' },
-      { title: item?.label || '未知页面' }
-    ];
+  const getBreadcrumbName = () => {
+    const currentPath = location.pathname;
+    const item = menuItems.find(item => item.path === currentPath);
+    return item?.label || '数据资源';
   };
 
-  const handleMenuClick = (path: string) => {
-    navigate(path);
+  const handleMenuClick = (key: string) => {
+    const item = menuItems.find(item => item.key === key);
+    if (item) {
+      navigate(item.path);
+    }
   };
 
   return (
@@ -86,7 +93,7 @@ const AppContent: React.FC = () => {
             key: item.key,
             icon: item.icon,
             label: item.label,
-            onClick: () => handleMenuClick(item.path)
+            onClick: () => handleMenuClick(item.key)
           }))}
         />
       </Sider>
@@ -110,8 +117,10 @@ const AppContent: React.FC = () => {
         <Content style={{ margin: '0 16px' }}>
           <Breadcrumb 
             style={{ margin: '16px 0' }}
-            items={getBreadcrumbItems()}
-          />
+          >
+            <Breadcrumb.Item>数据目录编目系统</Breadcrumb.Item>
+            <Breadcrumb.Item>{getBreadcrumbName()}</Breadcrumb.Item>
+          </Breadcrumb>
           
           <div style={{ 
             padding: 24, 
@@ -123,6 +132,7 @@ const AppContent: React.FC = () => {
               <Route path="/" element={<TableList />} />
               <Route path="/chat" element={<ChatInterface />} />
               <Route path="/statistics" element={<Statistics />} />
+              <Route path="/case-analysis" element={<CaseAnalysis />} />
             </Routes>
           </div>
         </Content>

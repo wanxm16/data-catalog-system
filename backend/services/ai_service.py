@@ -1,7 +1,7 @@
 import os
 from openai import OpenAI
 from typing import Dict, List, Optional
-from models.schemas import CatalogInfo, DomainCategory, TableLayer, FieldInfo, SourceTableInfo
+from models.schemas import CatalogInfo, DomainCategory, TableLayer, FieldInfo, SourceTableInfo, CaseAnalysisResponse, AnalysisStep
 from services.table_service import TableService
 import json
 import re
@@ -20,6 +20,127 @@ class AIService:
             self.client = OpenAI(api_key=self.openai_api_key)
         
         self.table_service = TableService()
+    
+    def analyze_case(self, case_description: str) -> Optional[CaseAnalysisResponse]:
+        """
+        分析案件目标并生成分解步骤和SQL
+        
+        Args:
+            case_description: 案件目标描述
+            
+        Returns:
+            CaseAnalysisResponse: 分析结果，包含步骤和SQL
+        """
+        try:
+            print(f"🔍 开始案件分解: {case_description}")
+            
+            if not self.client:
+                error_msg = "OpenAI API Key 未配置，请设置 OPENAI_API_KEY 环境变量"
+                print(f"❌ {error_msg}")
+                raise Exception(error_msg)
+            
+            print("✅ OpenAI客户端已就绪")
+            
+            # 验证API Key格式
+            api_key = os.getenv('OPENAI_API_KEY')
+            print(f"📋 使用API Key: {api_key[:20]}...")
+            
+            # 构建案件分解提示词
+            prompt = f"""你是一个擅长多步任务分解和结构化SQL生成的大模型办案助手。
+
+请根据以下案件目标描述，自动完成逻辑步骤分解，并针对每个逻辑步骤，生成对应的SQL语句。
+
+【案件目标描述】: {case_description}
+
+【分析要求】：
+1. 将案件目标分解为5-8个逻辑步骤
+2. 每个步骤应该有清晰的逻辑描述和对应的SQL语句
+3. 步骤之间应该有逻辑递进关系
+4. SQL中使用伪字段名和伪表名，方便后续做字段替换
+5. 时间条件请尽可能用 NOW() 或者 DATE_SUB() 表达
+6. 所有字段尽量使用英文名并注释说明含义
+7. 不必考虑具体数据库类型，保持语法通用性
+
+请用以下JSON格式返回结果：
+{{
+  "summary": "案件分析总结，简要说明分析思路和目标",
+  "steps": [
+    {{
+      "step_number": 1,
+      "description": "步骤1的逻辑描述",
+      "sql": "-- 步骤1对应的SQL代码\\nSELECT..."
+    }},
+    {{
+      "step_number": 2,
+      "description": "步骤2的逻辑描述",
+      "sql": "-- 步骤2对应的SQL代码\\nSELECT..."
+    }}
+  ]
+}}
+
+【参考示例】：
+案件目标：乌鲁木齐疑似高风险偷渡人员
+
+分析步骤示例：
+1. 提取乌鲁木齐市常住人口管理中单一民族人员
+2. 基于步骤1结果提取最近一个月去过云南省的人员  
+3. 基于步骤2结果，关联最近一个月内有二手车交易行为的人员
+4. 基于步骤3的结果，提取最近三年有犯罪记录的人员
+5. 基于步骤4的结果，标注出人员户籍所属区县
+
+请参考这个示例的分析思路和步骤深度。"""
+
+            print("🤖 正在调用OpenAI API...")
+            
+            # 调用OpenAI API
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "你是一个专业的案件分析助手，擅长将复杂案件目标分解为可执行的分析步骤，并生成对应的SQL查询语句。"},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.3,
+                max_tokens=3000
+            )
+            
+            print("✅ OpenAI API调用成功")
+            
+            ai_response = response.choices[0].message.content
+            print(f"📝 AI响应长度: {len(ai_response)} 字符")
+            
+            # 解析AI返回的JSON
+            json_match = re.search(r'\{.*\}', ai_response, re.DOTALL)
+            if json_match:
+                print("✅ 找到JSON格式响应")
+                result = json.loads(json_match.group())
+                
+                # 构建分析步骤
+                steps = []
+                if 'steps' in result:
+                    for step_data in result['steps']:
+                        steps.append(AnalysisStep(
+                            step_number=step_data.get('step_number', 0),
+                            description=step_data.get('description', ''),
+                            sql=step_data.get('sql', '')
+                        ))
+                
+                print(f"✅ 成功解析 {len(steps)} 个分析步骤")
+                
+                return CaseAnalysisResponse(
+                    steps=steps,
+                    summary=result.get('summary', '无总结')
+                )
+            else:
+                error_msg = f"AI返回格式错误，无法解析JSON。响应内容: {ai_response[:500]}..."
+                print(f"❌ {error_msg}")
+                return None
+                
+        except Exception as e:
+            error_msg = f"案件分解失败: {str(e)}"
+            print(f"❌ {error_msg}")
+            import traceback
+            traceback.print_exc()
+            return None
     
     def parse_etl_script(self, etl_file_path: str) -> Optional[Dict]:
         """

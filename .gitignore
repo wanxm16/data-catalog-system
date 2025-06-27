@@ -90,4 +90,4 @@ htmlcov/
 .tox/
 .nox/
 .coverage
-.pytest_cache/ 
+.pytest_cache/ backend/.deps_installed

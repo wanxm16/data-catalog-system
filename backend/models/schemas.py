@@ -102,6 +102,21 @@ class ChatResponse(BaseModel):
     answer: str
     sources: List[str] = []  # 引用的数据源
 
+class AnalysisStep(BaseModel):
+    """分析步骤模型"""
+    step_number: int
+    description: str
+    sql: str
+
+class CaseAnalysisResponse(BaseModel):
+    """案件分析响应模型"""
+    steps: List[AnalysisStep]
+    summary: str
+
+class CaseAnalysisRequest(BaseModel):
+    """案件分析请求模型"""
+    case_description: str
+
 class ApiResponse(BaseModel):
     """通用API响应模型"""
     success: bool

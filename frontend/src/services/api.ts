@@ -8,7 +8,10 @@ import {
   ChatRequest,
   ChatResponse,
   ApiResponse,
-  SystemStatistics
+  SystemStatistics,
+  AnalysisStep,
+  AnalysisResult,
+  CaseAnalysisRequest
 } from '../types';
 
 // 创建axios实例
@@ -105,6 +108,19 @@ export class ApiService {
   }
 
   /**
+   * 案件分解
+   * @param caseDescription 案件描述
+   */
+  static async analyzeCase(caseDescription: string): Promise<AnalysisResult> {
+    const request: CaseAnalysisRequest = { case_description: caseDescription };
+    const response: AxiosResponse<ApiResponse<AnalysisResult>> = await api.post('/case-analysis', request);
+    if (!response.data.data) {
+      throw new Error('案件分解失败');
+    }
+    return response.data.data;
+  }
+
+  /**
    * 获取系统统计信息
    */
   static async getStatistics(): Promise<SystemStatistics> {
@@ -131,5 +147,8 @@ export class ApiService {
     return response.data;
   }
 }
+
+// 为了兼容性，导出analyzeCase函数
+export const analyzeCase = ApiService.analyzeCase;
 
 export default ApiService; 

@@ -113,4 +113,20 @@ export interface SystemStatistics {
   catalog_progress: number;
   vector_db_documents: number;
   last_update: string;
+}
+
+// 案件分析相关接口
+export interface AnalysisStep {
+  step_number: number;
+  description: string;
+  sql: string;
+}
+
+export interface AnalysisResult {
+  steps: AnalysisStep[];
+  summary: string;
+}
+
+export interface CaseAnalysisRequest {
+  case_description: string;
 } 

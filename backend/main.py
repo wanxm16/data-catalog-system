@@ -1,11 +1,17 @@
+import os
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 import uvicorn
 
+# 加载环境变量
+load_dotenv()
+
 from models.schemas import (
     TableInfo, TableDetail, CatalogRequest, CatalogUpdateRequest,
-    ChatRequest, ChatResponse, ApiResponse, CatalogInfo
+    ChatRequest, ChatResponse, ApiResponse, CatalogInfo,
+    CaseAnalysisRequest, CaseAnalysisResponse
 )
 from services.table_service import TableService
 from services.ai_service import AIService
@@ -142,6 +148,28 @@ async def chat_with_catalog(request: ChatRequest):
         return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"智能问答失败: {str(e)}")
+
+@app.post("/api/case-analysis", response_model=ApiResponse)
+async def analyze_case(request: CaseAnalysisRequest):
+    """案件分解接口"""
+    try:
+        analysis_result = ai_service.analyze_case(request.case_description)
+        
+        if analysis_result is None:
+            return ApiResponse(
+                success=False,
+                message="案件分解失败",
+                data=None
+            )
+        
+        return ApiResponse(
+            success=True,
+            message="案件分解成功",
+            data=analysis_result.dict()
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"案件分解失败: {str(e)}")
 
 @app.get("/api/statistics")
 async def get_statistics():
