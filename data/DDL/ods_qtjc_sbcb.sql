@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_qtjc_sbcb(bab010 STRING COMMENT '统一社会信用代码',aab004 STRING COMMENT '单位名称',aae002 STRING COMMENT '数据期别',ijfrs STRING COMMENT '养老缴费人数',jjfrs STRING COMMENT '失业缴费人数',ljfrs STRING COMMENT '工伤参保人数') TBLPROPERTIES ('comment'='企业_社保参保人数情况信息');

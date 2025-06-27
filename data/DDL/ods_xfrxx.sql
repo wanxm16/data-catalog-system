@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_xfrxx(zjhm STRING,sjh STRING,zz STRING,zj STRING,cs STRING,biaoqian STRING,laiyuan STRING);

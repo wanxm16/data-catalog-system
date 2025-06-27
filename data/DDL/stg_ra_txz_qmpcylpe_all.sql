@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_ra_txz_qmpcylpe_all(id BIGINT COMMENT '唯一ID',chain_id STRING COMMENT '产业链ID',chain_name STRING COMMENT '产业链名称',parentcode STRING COMMENT '父节点',level_ BIGINT COMMENT '级别',version_flag BIGINT COMMENT '版本号') TBLPROPERTIES ('comment'='瑞安_塘下镇_汽车零部件产业链配置信息)');

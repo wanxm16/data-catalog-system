@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dwd_lz_qy_main3_col_align_info(target_table STRING,target_col STRING,view_name STRING,prio BIGINT) TBLPROPERTIES ('lifecycle'='5');

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ybcb(xm STRING,dwmc STRING,zjhm STRING,zjlx STRING,xb STRING,lxdh STRING,jzdz STRING,jdmc STRING,cmc STRING,cbxz STRING,cbzt STRING,biaoqian STRING,laiyuan STRING,nd STRING);

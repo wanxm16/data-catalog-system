@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_fmxx_ldbzcf(aab004 STRING COMMENT '企业名称',aab003 STRING COMMENT '统一社会信用代码',aab013 STRING COMMENT '法定代表人或负责人',abb068 STRING COMMENT '处罚决定书文号',abb121 STRING COMMENT '处罚决定书内容',abb010 STRING COMMENT '简要案情',abb087 STRING COMMENT '结案日期',abb701 STRING COMMENT '执法部门名称') TBLPROPERTIES ('comment'='企业_劳å¨保障处罚信息');

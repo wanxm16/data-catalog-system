@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_rkv1_lxdh(zjhm STRING,lxdh STRING,lxdh2 STRING);

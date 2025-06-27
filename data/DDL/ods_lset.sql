@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_lset(name STRING,zjhm STRING,biaoqian STRING,laiyuan STRING);

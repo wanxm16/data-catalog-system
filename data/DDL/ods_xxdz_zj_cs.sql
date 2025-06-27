@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_xxdz_zj_cs(xxdz STRING,zj STRING,cs STRING,city STRING);

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_ra_txz_qmpzlxx_all(id BIGINT COMMENT 'ID',company_id STRING COMMENT '企业ID',company_name STRING COMMENT '企业名称',patent_name STRING COMMENT '专利名称',apply_code STRING COMMENT '申请公布号',apply_date DATETIME COMMENT '申请日期',patent_type STRING COMMENT '专利类型',version_flag BIGINT COMMENT '版本号') TBLPROPERTIES ('comment'='瑞安_塘下镇_汽车零部件企业专利信息)');

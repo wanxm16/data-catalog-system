@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_ra_txz_qmpgdxx_all(id BIGINT COMMENT 'ID',company_id STRING COMMENT '企业ID',company_name STRING COMMENT '企业名称',shareholder STRING COMMENT '发起人/股东',holding_ratio STRING COMMENT '持股比例',subscribed_capital STRING COMMENT '认缴金额',version_flag BIGINT COMMENT '版本号') TBLPROPERTIES ('comment'='瑞安_塘下镇_汽车零部件企业股东信息)');

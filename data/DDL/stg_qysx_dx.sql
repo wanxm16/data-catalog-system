@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_qysx_dx(pripid STRING COMMENT '内部序号',revdate STRING COMMENT '吊销时间',revdecno STRING COMMENT '吊销处罚文号',revbasis STRING COMMENT '吊销原因',revauth STRING COMMENT '吊照处罚实施机关') TBLPROPERTIES ('comment'='瑞安_工商吊销企业信息');

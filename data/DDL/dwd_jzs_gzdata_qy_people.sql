@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dwd_jzs_gzdata_qy_people(id STRING COMMENT '主键ID',idcard STRING COMMENT '身份证号码',name STRING COMMENT '姓名',uniscid STRING COMMENT '企业组织机构代码',entname STRING COMMENT '企业名称',`role` STRING COMMENT '角色',data_source STRING COMMENT '数据来源') TBLPROPERTIES ('comment'='瑞安企业人员信息表');

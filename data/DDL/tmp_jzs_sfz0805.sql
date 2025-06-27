@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS tmp_jzs_sfz0805(idcard VARCHAR(5));

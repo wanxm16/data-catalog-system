@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_csyxzm_zjhm(csbh STRING,xm STRING,zjhm STRING,sr STRING,fsfz STRING,msfz STRING);

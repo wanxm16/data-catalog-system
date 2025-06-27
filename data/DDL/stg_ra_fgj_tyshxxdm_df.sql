@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_ra_fgj_tyshxxdm_df(entname STRING COMMENT '企业名称',credcode STRING COMMENT '统一社会信用代码',regcode STRING COMMENT '工商登记码',orgcode STRING COMMENT '组织机构代码',taxcode STRING COMMENT '税务登记号',dsc_biz_record_id STRING,dsc_biz_operation STRING,dsc_biz_timestamp STRING) TBLPROPERTIES ('comment'='瑞安_发改局_省市回流统一社会信用代码信息（国家下发数据）');

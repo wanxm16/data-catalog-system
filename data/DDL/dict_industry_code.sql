@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dict_industry_code(code STRING COMMENT '行业代码',content STRING COMMENT '行业名称',zrdhy STRING COMMENT '行业大类代码',ml STRING COMMENT '行业门类代码',zt STRING COMMENT '状态') TBLPROPERTIES ('comment'='字典_行业分类');

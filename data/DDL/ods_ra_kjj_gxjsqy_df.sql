@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ra_kjj_gxjsqy_df(id BIGINT COMMENT '业务库表ID',certificateno STRING COMMENT '证书编号',enterprisename STRING COMMENT '企业名称',creditcode STRING COMMENT '统一社会信用代码',cdc_dm_timestamp STRING COMMENT '数据同步时间') TBLPROPERTIES ('comment'='瑞安_科技局_高新技术企业信息');

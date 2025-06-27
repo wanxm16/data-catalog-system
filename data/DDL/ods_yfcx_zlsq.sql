@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_yfcx_zlsq(id STRING COMMENT '主键',name STRING COMMENT '专利标题',`type` STRING COMMENT '专利类型',application_date DATETIME COMMENT '申请入库日',patentee STRING COMMENT '申请人',office_code STRING COMMENT '专利权人代码',address STRING COMMENT '申请人地址',area_name STRING COMMENT '专利所属区域',agency STRING COMMENT '代理所') TBLPROPERTIES ('comment'='省市回流_专利授权信息');

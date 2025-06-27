@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_dzk_glqy(objectid STRING,social_credit_code STRING,tydz_name STRING,create_time BIGINT,update_time BIGINT,is_delete BIGINT,tydz_code STRING);

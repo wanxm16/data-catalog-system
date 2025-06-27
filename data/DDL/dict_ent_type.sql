@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dict_ent_type(type_code STRING COMMENT '企业类型代码',type_name STRING COMMENT '企业类型名称',category_code STRING COMMENT '统计类别代码',category_name STRING COMMENT '统计类别名称') TBLPROPERTIES ('comment'='字典_企业类型');

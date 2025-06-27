@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ra_fay_fypjs_df(ah STRING COMMENT '案号',ahdm STRING COMMENT '案号代码',wsmc STRING COMMENT '文书名称',fzjg STRING COMMENT '发证机关',fzrq STRING COMMENT '发证日期',dsr STRING COMMENT '当事人',`status` STRING COMMENT '状态') TBLPROPERTIES ('comment'='瑞安_法院_法院判决书信息');

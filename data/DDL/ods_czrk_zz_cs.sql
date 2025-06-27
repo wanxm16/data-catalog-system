@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_czrk_zz_cs(czrkjlxmc STRING,czrkjwhmc STRING,zj STRING);

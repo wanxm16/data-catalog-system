@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_qysx_zx(pripid STRING COMMENT '主体身份代码',uniscid STRING COMMENT '统一社会信用代码',regno STRING COMMENT '注册号',entname STRING COMMENT '企业名称',candate STRING COMMENT '注销时间',canrea STRING COMMENT '注销原因代码',canrea_cn STRING COMMENT '注销原因中文',regorg_cn STRING COMMENT '登记机关名称') TBLPROPERTIES ('comment'='企业_注销企业信息');

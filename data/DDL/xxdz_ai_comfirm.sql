@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS xxdz_ai_comfirm(xxdz STRING,zj STRING,city STRING);

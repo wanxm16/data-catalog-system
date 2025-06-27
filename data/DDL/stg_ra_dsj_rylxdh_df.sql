@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_ra_dsj_rylxdh_df(id STRING,zjhm STRING,zjlx STRING,lxdh STRING,sjgxsj DATETIME,sjzlsj DATETIME,sydw STRING,syb STRING,dh_sjjb STRING,dh_tjjb STRING) TBLPROPERTIES ('comment'='瑞安_大数据_人口库人员联系电话信息');

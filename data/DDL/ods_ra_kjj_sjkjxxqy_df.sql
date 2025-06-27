@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ra_kjj_sjkjxxqy_df(id STRING COMMENT '业务库表ID',enterprisename STRING COMMENT '企业名称',creditcode STRING COMMENT '统一社会信用代码',certificateno STRING COMMENT '证书编号',city STRING COMMENT '所在市',town STRING COMMENT '所在县') TBLPROPERTIES ('comment'='瑞安_科技局_省级科技型中小企业信息');

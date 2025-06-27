@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_lsjbxx(id STRING,lszyzshm STRING,sczysj STRING,xm STRING,zyzlb STRING,szzyjg STRING,lxfs STRING,sfzh STRING,xb STRING,sfhhr STRING,qymc STRING,qybm STRING,tjrq STRING,dwtyxydm STRING,zw STRING,xksj STRING,zsmc STRING,zsbh STRING,lslx STRING,lszt STRING);

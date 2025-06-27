@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS tab_contrib_scores(transaction_no STRING COMMENT '批次信息',db_name STRING COMMENT '项目空间名称',table_name STRING COMMENT '目标表名',col_name STRING COMMENT '字段名',prio BIGINT COMMENT '对齐表优先级',cnt BIGINT COMMENT '贡献数',total_cnt BIGINT COMMENT '目标表行数') PARTITIONED BY (dt STRING) TBLPROPERTIES ('comment'='各表贡献分数库');

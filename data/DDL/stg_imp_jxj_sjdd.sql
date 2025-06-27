@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_imp_jxj_sjdd(land_name STRING COMMENT '地块名称',sell_area STRING COMMENT '出让面积（亩）',project_name STRING COMMENT 'é¡¹目名称',ent_name STRING COMMENT '业主单位',listing_date STRING COMMENT '挂牌公告时间',delet_date STRING COMMENT '摘牌时间',town STRING COMMENT '所属镇街',domain STRING COMMENT '所属功能区') TBLPROPERTIES ('comment'='经信局数据得地_导入');

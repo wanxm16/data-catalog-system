@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ai_qydz_in(key_md5 STRING COMMENT 'md5主键',pripid STRING COMMENT '主体身份代码',uniscid STRING COMMENT '统一社会信用代码',addr_type STRING COMMENT '请求类型',addr_name STRING COMMENT '请求名称',addr_street STRING COMMENT '乡镇街道',addr_village STRING COMMENT '村居社区',ai_result STRING COMMENT 'AI请求结果',ai_time STRING COMMENT 'AI请求时间') TBLPROPERTIES ('comment'='AI_缺省地址_解析');

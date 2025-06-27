@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_ra_txz_qmprzxx_all(id BIGINT COMMENT 'ID',company_id STRING COMMENT '企业ID',company_name STRING COMMENT '企业名称',pub_date DATETIME COMMENT '发布日期',financing_amount STRING COMMENT '融资金额',investor STRING COMMENT '投资方',financing_round STRING COMMENT '融资轮次',version_flag BIGINT COMMENT '版本号') TBLPROPERTIES ('comment'='瑞安_塘下镇_汽车零部件企业融资信息)');

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_cjrk(zjhm STRING,zjlx STRING,xm STRING,xb STRING,cjr_lxdh STRING,cjrdz STRING,zj STRING,cs STRING,cjjhr STRING,cjjhr_lxdh STRING,cjjr_zz STRING,cjjr_gx STRING,biaoqian STRING,laiyuan STRING);

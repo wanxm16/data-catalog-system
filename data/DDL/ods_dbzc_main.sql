@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_dbzc_main(bhax0039 STRING COMMENT '主键',name STRING COMMENT '姓名',id_number STRING COMMENT '身份证号',address STRING COMMENT '现居地址',tel STRING COMMENT '联系电话') TBLPROPERTIES ('comment'='低保在册主表');

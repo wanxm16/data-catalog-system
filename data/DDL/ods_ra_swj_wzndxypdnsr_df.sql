@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ra_swj_wzndxypdnsr_df(nsrmc STRING COMMENT '纳税人名称',nsrsbh STRING COMMENT '纳税人识别号',ssnd STRING COMMENT '所属年度',xydj STRING COMMENT '信用等级',zgswjg STRING COMMENT '主管税务机关') TBLPROPERTIES ('comment'='瑞安_税务局_温州年度信用等级评定A级纳税人信息');

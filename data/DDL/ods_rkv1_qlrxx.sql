@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_rkv1_qlrxx(qlrmc STRING,zjh STRING,bdczl STRING,biaoqian STRING,laiyuan STRING);

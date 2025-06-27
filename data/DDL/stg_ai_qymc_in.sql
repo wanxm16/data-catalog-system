@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_ai_qymc_in(key_md5 STRING COMMENT 'md5主键',entname STRING COMMENT '企业名称',ai_result STRING COMMENT 'AI请求结果',ai_time STRING COMMENT 'AI请求时间') TBLPROPERTIES ('comment'='AI_企业名称_导入');

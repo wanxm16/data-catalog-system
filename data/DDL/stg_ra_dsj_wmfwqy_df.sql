@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_ra_dsj_wmfwqy_df(name STRING COMMENT '企业名称',domdistrict STRING COMMENT '行政区划代码',industryco STRING COMMENT '归属行业',industryco_code STRING COMMENT '行业代码',areacode STRING COMMENT '所属区县代码',districtname STRING COMMENT '行政区划中文',area_name STRING COMMENT '所属区县中文',regstate STRING COMMENT '经营状态') TBLPROPERTIES ('comment'='瑞安_大数据_市回流外贸服务企业名单信息（含历史）');

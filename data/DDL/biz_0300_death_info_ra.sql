@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS biz_0300_death_info_ra(bh STRING,xm STRING,sfzh STRING,csrq STRING,swrq STRING,hhrq STRING,swyy STRING,xzqh STRING,xxdz STRING,hhdw STRING);

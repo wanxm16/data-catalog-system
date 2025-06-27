@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dsc_ra_biz_0300_xy_qydsjlry(pripid STRING,person_id STRING,name STRING,country STRING,position STRING,cerno STRING,sex STRING,id STRING);

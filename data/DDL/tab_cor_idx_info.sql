@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS tab_cor_idx_info(db_name STRING COMMENT '项目空间名称',table_name STRING COMMENT '目标表名',key STRING COMMENT '主键名',col_idx STRING COMMENT '字段索引信息，json形式',batch_no STRING COMMENT '批次信息') PARTITIONED BY (dt STRING COMMENT '日期分区YYYYMMDD') TBLPROPERTIES ('comment'='各表修正数据索引库');

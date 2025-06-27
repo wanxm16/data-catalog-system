@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ssjj_dsc_dd041_gsj_hj_hz_e_inv_valid_delta_gt_old_ra(subconprop STRING,invtype STRING,invid STRING,blictype_cn STRING,country_cn STRING,pripid STRING,inv STRING,blictype STRING,blicno STRING,subconam STRING,country STRING,certype STRING,cerno STRING,update_time STRING,exeaffsign STRING,asrename STRING,fddbr STRING,asrecerno STRING,asremobtel STRING);

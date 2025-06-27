@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ra_hbj_qzxqjscqy_df(wh STRING COMMENT '文号',qymc STRING COMMENT '企业名称',tyshxydm STRING COMMENT '统一社会信用代码',zzjgdm STRING COMMENT '组织机构代码',sshy STRING COMMENT '所属行业',xsq STRING COMMENT '县（市区）',sqs STRING COMMENT '设区市',mdfbjg STRING COMMENT '名单发布机关',mdfbrq STRING COMMENT '名单发布日期') TBLPROPERTIES ('comment'='瑞安_环保局_强制性清洁生产审核企业名单信息');

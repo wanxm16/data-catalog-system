@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_frdb(cerno STRING,biaoqian STRING,laiyuan STRING);

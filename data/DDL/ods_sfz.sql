@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_sfz(czrkslqfid STRING,czrkgmsfhm STRING,czrkxm STRING,czrkxb STRING,czrkcsrq STRING,czrkmz STRING,czrkssqx STRING,czrkzz STRING,czrkqfjg STRING,czrkyxqxqsrq STRING,czrkyxqxjzrq STRING,fzjg_tyxydm STRING,czztdmlx STRING);

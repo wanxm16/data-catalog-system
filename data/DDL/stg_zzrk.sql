@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_zzrk(xm STRING,sfzh STRING,zzzh STRING,xb STRING,mz STRING,qx STRING,pcs STRING,jlx STRING,zzdz STRING,fzxm STRING,fzsfzh STRING,djrq STRING,zxrq STRING,czfwdah STRING,hjqx STRING,hjdz STRING,lxdh STRING,hjqxdm STRING,djztmc STRING,xbdm STRING,mzdm STRING,qxdm STRING,pcsdm STRING,dsc_biz_operation STRING);

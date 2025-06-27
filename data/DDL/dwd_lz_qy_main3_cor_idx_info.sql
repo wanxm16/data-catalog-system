@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dwd_lz_qy_main3_cor_idx_info(key STRING,target_table STRING,target_col STRING,num BIGINT) TBLPROPERTIES ('lifecycle'='5');

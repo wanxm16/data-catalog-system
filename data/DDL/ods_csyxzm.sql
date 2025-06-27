@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_csyxzm(zjhm STRING,biaoqian STRING,laiyuan STRING);

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_rkv1_xsz(biaoqian STRING,laiyuan STRING,hphm STRING,xm STRING,zj STRING,cs STRING,sfzmhm STRING,jzdz STRING,lxdh STRING);

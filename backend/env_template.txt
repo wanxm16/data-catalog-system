@@ -1,0 +1,18 @@
+# 数据目录编目系统环境变量配置模板
+
+# 1. 将此文件复制为 .env
+# 2. 填写您的OpenAI API Key
+# 3. 重启后端服务
+
+# OpenAI API配置 (必填 - 用于AI智能编目功能)
+OPENAI_API_KEY=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
+
+# 可选配置
+OPENAI_MODEL=gpt-4
+OPENAI_MAX_TOKENS=2000
+
+# 数据目录配置
+DATA_DIR=../data
+VECTOR_DB_DIR=../vector_db
+
+# 获取OpenAI API Key: https://platform.openai.com/api-keys 

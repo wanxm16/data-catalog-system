@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_qygg_zyry(pripid STRING COMMENT '主体身份代码',person_id STRING COMMENT '人员序号',name STRING COMMENT '姓名',country STRING COMMENT '国别_地区',position STRING COMMENT '职务',cerno STRING COMMENT '证件号码',sex STRING COMMENT '性别',id STRING COMMENT '序号') TBLPROPERTIES ('comment'='瑞安_企业主要人员信息（含董事、监事信息）');

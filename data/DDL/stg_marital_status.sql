@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_marital_status(zjhm STRING,hyzt STRING,dt STRING,xm STRING);

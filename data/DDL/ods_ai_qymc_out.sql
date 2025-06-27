@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ai_qymc_out(key_md5 STRING COMMENT 'md5主键',entname STRING COMMENT '企业名称') TBLPROPERTIES ('comment'='AI_企业名称_导出');

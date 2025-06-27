@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dwd_jzs_gzdata_qy_people_0910(data_source STRING,`role` STRING,idcard STRING,name STRING,uniscid STRING,entname STRING);

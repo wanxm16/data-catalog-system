@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS tmp_jzs_dw_0127end(uniscid STRING,dw_name STRING,entname STRING,dom_street STRING,dom_village STRING,dom STRING,regorg STRING,regstate STRING);

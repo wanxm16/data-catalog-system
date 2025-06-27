@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS tmp_jzs_dw(uniscid STRING,dw_name STRING);

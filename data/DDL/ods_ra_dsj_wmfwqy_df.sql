@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ra_dsj_wmfwqy_df(name STRING COMMENT '企业名称',uniscid STRING COMMENT '统一社会信用代码',industryco STRING COMMENT '归属行业',industryco_code STRING COMMENT '行业代码',districtname STRING COMMENT '行政区划中文') TBLPROPERTIES ('comment'='瑞安_大数据_外贸服务企业名单信息（含历史）');

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dict_canrea_code(code STRING COMMENT '注销原因代码',reason STRING COMMENT '注销原因中文') TBLPROPERTIES ('comment'='字典_注销原因');

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dwd_lz_qy_main3_key_dist_info(key STRING,lz_sk1 STRING,lz_sk2 STRING,lz_sk3 STRING,lz_sk4 STRING,lz_sk5 STRING,key_dist BIGINT) TBLPROPERTIES ('lifecycle'='5');

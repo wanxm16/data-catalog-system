@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dwd_qy_zzry_gxjsqy_df(id STRING COMMENT '标识ID',entname STRING COMMENT '企业名称',uniscid STRING COMMENT '统一社会信用代码',cert_no STRING COMMENT '证书编号',laiyuan STRING COMMENT '来源') TBLPROPERTIES ('comment'='企业_资质荣誉_高新技术企业');

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dict_position_code(code STRING COMMENT '职务代码',name STRING COMMENT '职位名称') TBLPROPERTIES ('comment'='字典_职务职位');

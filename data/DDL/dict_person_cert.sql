@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dict_person_cert(certype STRING COMMENT '证件类型代码',certype_cn STRING COMMENT '证件类型名称',jckfr_cert STRING COMMENT '省基础库法人证件类型码') TBLPROPERTIES ('comment'='字典_身份证件');

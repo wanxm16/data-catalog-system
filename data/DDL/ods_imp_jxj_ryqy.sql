@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_imp_jxj_ryqy(uniscid STRING COMMENT '统一信用代码',honor_name STRING COMMENT '荣誉名称',ent_name STRING COMMENT '企业名称',year_no STRING COMMENT '公示年度',key_ent STRING COMMENT '重点企业') TBLPROPERTIES ('comment'='经信局荣誉企业_导入');

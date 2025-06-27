@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_tkzc_main(bhcx0070 STRING COMMENT '主键',name STRING COMMENT '姓名',id_number STRING COMMENT '身份证号',address STRING COMMENT '现居地址',tel STRING COMMENT '联系电话') TBLPROPERTIES ('comment'='特困在册主表');

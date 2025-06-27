@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ra_txz_qmpcylcfqy_all(id BIGINT COMMENT '唯一ID',chain_id STRING COMMENT '产业链ID',company_id STRING COMMENT '企业ID',uniscid STRING COMMENT '统一社会信用代码',chain_name STRING COMMENT '产业链名称',company_name STRING COMMENT '企业名称',is_valid BIGINT COMMENT '是否有效',version_flag BIGINT COMMENT '版本号') TBLPROPERTIES ('comment'='瑞安_塘下镇_汽车零部件产业链成分企业信息)');

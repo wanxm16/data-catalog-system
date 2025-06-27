@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dict_country_code(ename STRING COMMENT '英文名',code2 STRING COMMENT '二位代码',code3 STRING COMMENT '三位代码',code STRING COMMENT '数字代码',iso STRING COMMENT 'ISO标准号',cname STRING COMMENT 'ISO标准号',independent STRING COMMENT '独立主权') TBLPROPERTIES ('comment'='字典_国籍代码');

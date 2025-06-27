@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_rkcsxx(zjhm STRING,fzjhm STRING,mzjhm STRING,laiyuan STRING);

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dzk_out(address STRING COMMENT '原始地址') TBLPROPERTIES ('comment'='企业库和人口库的全部地址');

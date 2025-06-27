@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS smzt_dsc_dd026_fuldur_zm_delta_gt_old_ra(durbarno STRING,durregid STRING,durname STRING,dursex STRING,durbirthdate STRING,durcardno STRING,durnationality STRING,durnation STRING,durhousehold STRING,durpvdno STRING,durcremationdate STRING,`status` STRING,durdeathdate STRING,durremarks STRING,durfullname STRING,durinterval STRING,cert_type STRING);

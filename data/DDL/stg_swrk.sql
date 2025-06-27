@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_swrk(zjhm STRING,bq STRING,laiyuan STRING);

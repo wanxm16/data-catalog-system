@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_xzcf(zjhm STRING,num BIGINT);

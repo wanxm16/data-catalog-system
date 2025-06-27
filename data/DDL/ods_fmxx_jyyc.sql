@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_fmxx_jyyc(busexclist STRING COMMENT '经营异常名录ID',pripid STRING COMMENT '内部序号',abntime STRING COMMENT '列入日期',specause_cn STRING COMMENT '列入经营异常名录原因',decorg_cn STRING COMMENT '作出决定机关(列入)',redecorg_cn STRING COMMENT '作出决定机关(移出)',remexcpres_cn STRING COMMENT '移出经营异常名录原因',remdate STRING COMMENT '移出日期') TBLPROPERTIES ('comment'='企业经营异常名录信息');

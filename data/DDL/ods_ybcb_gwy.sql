@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ybcb_gwy(zjhm_gwy STRING COMMENT '身份证号码',biaoqian_gwy STRING COMMENT '标签') TBLPROPERTIES ('comment'='医保参保公务员');

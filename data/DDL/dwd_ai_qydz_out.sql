@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dwd_ai_qydz_out(key_md5 STRING COMMENT 'md5主键',pripid STRING COMMENT '主体身份代码',uniscid STRING COMMENT '统一社会信用代码',addr_type STRING COMMENT '请求类型',addr_name STRING COMMENT '请求名称',addr_street STRING COMMENT '乡镇街道') TBLPROPERTIES ('comment'='AI_缺省地址_导出');

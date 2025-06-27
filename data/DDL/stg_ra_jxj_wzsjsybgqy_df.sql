@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_ra_jxj_wzsjsybgqy_df(qymc STRING COMMENT '企业名称',qy STRING COMMENT '区域',nd STRING COMMENT '年度',xh STRING COMMENT '序号') TBLPROPERTIES ('comment'='瑞安_经信局_市回流温州市市级上云标杆企业名单信息');

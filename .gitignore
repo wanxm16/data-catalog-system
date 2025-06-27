@@ -1,0 +1,93 @@
+# 系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+backend/venv/
+backend/env/
+backend/ENV/
+backend/env.bak/
+backend/venv.bak/
+
+# Environment variables
+backend/.env
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node.js
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+frontend/coverage/
+frontend/build/
+frontend/.nyc_output
+
+# 日志文件
+*.log
+backend.log
+frontend.log
+server.log
+
+# 向量数据库文件（运行时生成）
+vector_db/*.json
+vector_db/*.npy
+vector_db/*.pkl
+
+# 数据备份文件
+vector_db_backup_*/
+data/*_backup_*.csv
+
+# 备份文件
+*_backup_*
+*.backup
+
+# 临时文件
+*.tmp
+*.temp
+.cache/
+
+# OpenAI API Key (安全)
+openai_key.txt
+
+# 其他
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.pytest_cache/ 

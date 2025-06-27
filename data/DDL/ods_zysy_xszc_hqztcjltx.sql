@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_zysy_xszc_hqztcjltx(company_name STRING COMMENT '企业名称',uniscid STRING COMMENT '统一信用代码',project_name STRING COMMENT '项目名称',reward STRING COMMENT '核定奖励金额',create_dt DATETIME COMMENT '公示开始时间',expire_dt DATETIME COMMENT '公示结束时间',wf_id BIGINT COMMENT '奖补项目ID',inst_id STRING COMMENT '实例ID') TBLPROPERTIES ('comment'='惠企直通车-奖励兑现信息');

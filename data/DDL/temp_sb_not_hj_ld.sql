@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS temp_sb_not_hj_ld(xm STRING,lxdh STRING,zjhm STRING,zj STRING,cs STRING,xxdz STRING);

@@ -1,0 +1,27 @@
+--省市回流_道路危险货物运输经营许可证
+INSERT OVERWRITE TABLE ods_ra_dsj_dlwxhwysxk_df
+SELECT  e_id    --'业户ID'
+        ,name    --'业户名称'
+        ,bizlicense    --'统一社会信用代码'
+        ,czztdmlx    --'持证主体类型'
+        ,address    --'注册地址'
+        ,econ_name    --'经济类型'
+        ,repres_name    --'法定代表人'
+        ,repres_id    --'法定代表人证件号码'
+        ,busi_scope    --'经营范围(文本）'
+        ,busi_memo    --'经营范围备注'
+        ,vehicle_num    --'车辆数'
+        ,license_key    --'经营许可证字'
+        ,license_num    --'经营许可证号'
+        ,card_type    --'证件类型'
+        ,valid_date_begin    --'有效期起'
+        ,valid_date_end    --'有效期止'
+        ,print_date    --'核发日期'
+        ,organ_name    --'发证机构名称'
+        ,zzbfjgdm    --'发证机构代码'
+        ,district_name    --'行政区划名称'
+        ,xzqhdm    --'行政区划代码'
+        ,STATUS    --'经营状态:1,营业'
+FROM    stg_ra_dsj_dlwxhwysxk_df
+WHERE status='营业'
+;

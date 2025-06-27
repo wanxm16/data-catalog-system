@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_zgyl_quanliang(xm STRING COMMENT '姓名',zjhm STRING COMMENT '证件号码',dwmc STRING COMMENT '单位名称',sb_xz STRING COMMENT '险种类型',sb_jfzt STRING COMMENT '社保缴费状态',sb_start STRING COMMENT '开始日期',sb_end STRING COMMENT '终止日期',biaoqian STRING COMMENT '标签',laiyuan STRING COMMENT '来源') TBLPROPERTIES ('comment'='社保个人参保全量');

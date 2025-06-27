@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dict_area_code(zj_code STRING COMMENT '乡镇街道代码',zj_name STRING COMMENT '乡镇街道名称',cs_code STRING COMMENT '村居社区代码',cs_name STRING COMMENT '村居社区名称') TBLPROPERTIES ('comment'='字典_行政划分代码');

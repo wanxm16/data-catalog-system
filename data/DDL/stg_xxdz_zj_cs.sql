@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_xxdz_zj_cs(xxdz STRING,zj STRING,cs STRING,city STRING,updt STRING);

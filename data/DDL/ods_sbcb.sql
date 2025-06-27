@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_sbcb(xm STRING COMMENT '姓名',zjhm STRING COMMENT '证件号码',zjlx STRING COMMENT '证件类型',dwmc STRING COMMENT '单位名称',sb_xz STRING COMMENT '险种类型',biaoqian STRING COMMENT '标签',laiyuan STRING COMMENT '来源') TBLPROPERTIES ('comment'='社保个人参保');

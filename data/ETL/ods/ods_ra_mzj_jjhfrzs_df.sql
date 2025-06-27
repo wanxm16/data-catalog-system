@@ -1,0 +1,27 @@
+--省市回流_基金会法人登记证书
+INSERT OVERWRITE TABLE ods_ra_mzj_jjhfrzs_df
+SELECT  jjh_ywbh    --'业务编码'
+        ,jjh_mc    --'名称'
+        ,jjh_tyxydm    --'统一社会信用代码'
+        ,jjh_cwxm    --'财务姓名'
+        ,jjh_cwsfz    --'财务身份证号'
+        ,jjh_fddbr    --'法定代表人'
+        ,jjh_frsfz    --'法人身份证号'
+        ,jjh_zs    --'住所'
+        ,jjh_ywfw    --'业务范围'
+        ,jjh_ywzgdw    --'业务主管单位'
+        ,dept_code    --'证照颁发机构代码'
+        ,jjh_fzjg    --'发证机关'
+        ,jjh_fzrq    --'发证日期'
+        ,jjh_zsyxksrq    --'证书有效期始'
+        ,jjh_zsyxjsrq    --'证书有效期止'
+        ,jjh_clsj    --'成立时间'
+        ,jjh_zxsj    --'注销时间'
+        ,jjh_zczj    --'原始基金数额'
+        ,jjh_bgsx    --'变更事项'
+        ,jjh_pgqk    --'评估情况'
+        ,jsfhqgmzg    --'是否是获取公募资格'
+        ,jsfcszz    --'是否是慈善组织'
+        ,jjh_zszt    --'证书状态'
+FROM    stg_ra_mzj_jjhfrzs_df
+;

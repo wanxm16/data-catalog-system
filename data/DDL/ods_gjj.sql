@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_gjj(grjcjs STRING,grjcbl STRING,grzh STRING,grjcye STRING,zrzhzt STRING,dwmc STRING,xingming STRING,grkhrq STRING,gryjce STRING,tyshxydm STRING,grxhrq STRING,zjh STRING,zjlx STRING,jgh STRING,zxjyrq STRING,biaoqian STRING,laiyuan STRING);

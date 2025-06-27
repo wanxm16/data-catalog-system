@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ra_sjj_qydjbgzmcl_df(pripid STRING COMMENT '主体身份代码',alt_id STRING COMMENT '序号',altitem STRING COMMENT '变更事项代码',altitem_cn STRING COMMENT '变更事项名称',altbe STRING COMMENT '变更前内容',altaf STRING COMMENT '变更后内容',altdate STRING COMMENT '变更日期',dsc_biz_record_id STRING,dsc_biz_timestamp STRING) TBLPROPERTIES ('comment'='瑞安_市监局_企业登记变更证明材料信息');

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dict_local_adm(code STRING COMMENT '管辖单位代码',name STRING COMMENT '管辖单位名称') TBLPROPERTIES ('comment'='字典_市监管辖单位');

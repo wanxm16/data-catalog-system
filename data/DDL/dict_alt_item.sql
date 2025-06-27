@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dict_alt_item(altitem_code STRING COMMENT '变更事项代码',altitem_name STRING COMMENT '变更事项名称') TBLPROPERTIES ('comment'='字典_工商变更事项');

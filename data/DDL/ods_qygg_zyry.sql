@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_qygg_zyry(pripid STRING COMMENT '主体身份代码',person_id STRING COMMENT '人员序号',position_cn STRING COMMENT '职务名称',position STRING COMMENT '职位代码',name STRING COMMENT '姓名',cerno STRING COMMENT '证件号码',country_cn STRING COMMENT '国籍名称',country STRING COMMENT '国籍代码') TBLPROPERTIES ('comment'='企业_主要人员信息（含董事、监事信息）');

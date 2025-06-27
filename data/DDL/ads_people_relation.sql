@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ads_people_relation(relation_id STRING,person_a STRING,person_b STRING,relation_type STRING);

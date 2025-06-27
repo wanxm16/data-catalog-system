@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS dwd_lz_qy_main3_score_info(key STRING,prio BIGINT,source_col STRING) TBLPROPERTIES ('lifecycle'='5');

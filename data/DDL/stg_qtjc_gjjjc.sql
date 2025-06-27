@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_qtjc_gjjjc(tyshxydm STRING COMMENT '征缴单位统一社会信用',dwmc STRING COMMENT '征缴单位全称',jgh STRING COMMENT '机构编号',dwzh STRING COMMENT '公积金账号',gjjkhrq STRING COMMENT '公积金开户日期',dwjjlx STRING COMMENT '单位缴存类型',dwjcrs STRING COMMENT '缴存人数',jzny STRING COMMENT '缴存年月止',dwjcbl DECIMAL COMMENT '缴存比例') TBLPROPERTIES ('comment'='瑞安_公积金法人缴存信息');

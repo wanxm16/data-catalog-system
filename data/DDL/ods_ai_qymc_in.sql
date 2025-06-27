@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_ai_qymc_in(entname STRING COMMENT '企业名称',uniscid STRING COMMENT '统一社会信用代码',ai_result STRING COMMENT 'AI请求结果',ai_time STRING COMMENT 'AI请求时间') TBLPROPERTIES ('comment'='AI_企业名称_解析统一社会信用代码');

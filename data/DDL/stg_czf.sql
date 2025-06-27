@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_czf(czfwdz STRING,dah STRING);

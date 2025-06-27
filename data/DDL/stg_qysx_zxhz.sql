@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_qysx_zxhz(pripid STRING COMMENT '主体身份代码',uscc STRING COMMENT '统一社会信用代码',regno STRING COMMENT '注册号',entname STRING COMMENT '名称',candate STRING COMMENT '注销时间') TBLPROPERTIES ('comment'='瑞安_注销企业信息');

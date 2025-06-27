@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ods_imp_jxj_zdbf(uniscid STRING COMMENT '统一信用代码',above_type STRING COMMENT '规模',ent_name STRING COMMENT '企业名称',town STRING COMMENT '所属镇街',remark STRING COMMENT '备注',year_no STRING COMMENT '统计年度') TBLPROPERTIES ('comment'='经信局重点帮扶企业_导入');

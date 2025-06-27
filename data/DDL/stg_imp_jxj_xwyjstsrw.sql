@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_imp_jxj_xwyjstsrw(year_no STRING COMMENT '年度',project_type STRING COMMENT '项目类型',land_name STRING COMMENT '小微园名称',bulid_content STRING COMMENT '建设内容',use_area STRING COMMENT '用地面积（亩）',project_plan STRING COMMENT '项目进度计划',duty_unit STRING COMMENT '责任单位',remark STRING COMMENT '备注') TBLPROPERTIES ('comment'='经信局小微园（产业园）建设提升任务_导入');

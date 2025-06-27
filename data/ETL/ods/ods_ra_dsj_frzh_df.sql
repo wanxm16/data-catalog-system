@@ -1,0 +1,82 @@
+--省市回流_法人库_法人基本信息_整合数据（试用）--质量不好弃用
+-- INSERT OVERWRITE TABLE ods_ra_dsj_frzh_df
+-- SELECT
+--         uscc--'统一社会信用代码',
+--         ,corp_nm--'企业名称',
+--         ,d1.type_name AS corp_type_cn--'企业类型名称',
+--         ,corp_type_cd--'企业类型代码',
+--         ,establishment_dt--'成立日期',
+--         ,legal_rep_nm--'法定代表人姓名',
+--         ,'居民身份证' legal_rep_ident_type_cn--'证件类型名称',
+--         ,legal_rep_ident_type_cd--'证件类型代码',
+--         ,legal_rep_ident_no--'法定代表人证件号码',
+--         ,CASE WHEN tel3 IS NULL THEN NULL 
+--               WHEN tel3 LIKE '#1%' THEN CONCAT(SUBSTR(tel3, 2, 11),'\\',SUBSTR(tel3, 13))--1开始的先截取手机11位
+--               WHEN tel3 LIKE '#%' THEN CONCAT(SUBSTR(tel3, 2, 8),'\\',SUBSTR(tel3, 10))--非1开始的先截取8位固话
+--               ELSE tel3 END contact_tel--'联系电话',
+--         ,reg_addr1 AS reg_addr--'注册地址',
+--         ,CASE WHEN reg_addr_village IS NOT NULL THEN reg_addr_town2
+--               WHEN prod_mgt_addr_village IS NOT NULL THEN prod_mgt_addr_town2
+--               ELSE COALESCE(reg_addr_town2,prod_mgt_addr_town2) END reg_addr_town--'注册地址乡镇街道',
+--         ,COALESCE(reg_addr_village,prod_mgt_addr_village)--'注册地址村社',
+--         ,prod_mgt_addr1 AS prod_mgt_addr--'生产经营地',
+--         ,prod_mgt_addr_town--'生产经营地乡镇街道',
+--         ,prod_mgt_addr_village--'注册地址村社',
+--         ,mgt_scope--'经营范围',
+--         ,mgt_status--'企业经营状态'
+-- FROM    (
+--         SELECT
+--                 t2.*
+--                 --证件类型和号码
+--                 ,CASE WHEN tel2 IS NULL OR tel2 ='' THEN NULL
+--                       WHEN tel2 LIKE'%-%' OR tel2 RLIKE'^[0-9]+[\\\\][0-9]+$' THEN tel2--多号码 或 固定电话
+--                       WHEN length(tel2) <11 AND tel2 LIKE'1%' THEN NULL--手机少位数
+--                       WHEN length(tel2) <11 AND tel2 LIKE'0%' THEN NULL--错误号码
+--                       WHEN tel2 RLIKE'^1[0-9]{10}$|^[1-9][0-9]{7}$|^0[0-9]{3}(-)*[0-9]{8}$' AND substr(tel2,4,8) REGEXP'(0000000|1111111|2222222|3333333|4444444|5555555|6666666|7777777|8888888|9999999|12345678)' THEN NULL
+--                       WHEN length(tel2) =12 AND tel2 LIKE'01%' THEN substr(tel2,2,11)--外地手机
+--                       WHEN length(tel2) =12 AND tel1 LIKE'1%' THEN NULL--手机多位数
+--                       WHEN length(tel2) =12 AND tel1 LIKE'0%' THEN tel2--固定电话
+--                       WHEN length(tel2) IN (16,19,22) THEN CONCAT('#',tel2)--两个号码,加#下步分割
+--                       WHEN length(tel2) >11 THEN NULL--混乱数据
+--                       ELSE tel2 END tel3--'联系电话'
+--                 ,DzToCs(reg_addr1,reg_addr_town2) reg_addr_village
+--                 ,DzToCs(prod_mgt_addr1,prod_mgt_addr_town2) prod_mgt_addr_village
+--         FROM    (
+--                 SELECT
+--                         t1.*
+--                         --证件类型和号码
+--                         ,REGEXP_REPLACE(tel1,'\\\\\\\\','\\\\') tel2
+--                         ,COALESCE(reg_addr_town1,DzToZj(reg_addr1),prod_mgt_addr_town1) reg_addr_town2
+--                         ,COALESCE(prod_mgt_addr_town1,DzToZj(prod_mgt_addr1)) prod_mgt_addr_town2
+--                 FROM    (
+--                         SELECT
+--                                 *
+--                                 ,CASE WHEN corp_type_cd ='' THEN NULL
+--                                       WHEN corp_type_cd ='3504' THEN '4600'--3504 联营 4600
+--                                       WHEN corp_type_cd ='6845' THEN '6150'--6845 有限责任公司(港澳台法人独资) 6150
+--                                       WHEN corp_type_cd ='6847' THEN '6140'--6847 有限责任公司(港澳台自然人独资) 6140
+--                                       WHEN corp_type_cd ='B01' THEN '4100'--B01 事业单位营业 4100
+--                                       WHEN corp_type_cd ='E01' THEN '4540'--E01 个人独资企业 4540
+--                                       ELSE corp_type_cd END corp_type_cd1
+--                                 ,CASE WHEN contact_tel RLIKE"^[1-9][0-9]{5}(18|19|20)[0-9]{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)[0-9]{3}[0-9|X|x]$" OR contact_tel RLIKE"^[1-9][0-9]{5}[0-9]{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)[0-9]{3}$" THEN contact_tel
+--                                       ELSE legal_rep_ident_no END legal_rep_ident_no1
+--                                 ,CASE WHEN contact_tel RLIKE"^[1-9][0-9]{5}(18|19|20)[0-9]{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)[0-9]{3}[0-9|X|x]$" OR contact_tel RLIKE"^[1-9][0-9]{5}[0-9]{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)[0-9]{3}$" THEN NULL
+--                                       ELSE REGEXP_REPLACE(REGEXP_REPLACE(TRIM(contact_tel),'[\\.\\/\\s;,#、，　；或]+','\\\\'),'[\\x{3400}-\\x{4db5}\\x{4e00}-\\x{9fa5}]+','')
+--                                  END tel1
+--                                 ,DzCorrectWord(reg_addr) reg_addr1
+--                                 ,CASE WHEN reg_addr_town_cd NOT LIKE'%330381%' OR reg_addr_town ='' THEN NULL
+--                                       WHEN reg_addr_town ='飞云望城街道' THEN '飞云街道'
+--                                       ELSE reg_addr_town END reg_addr_town1
+--                                 ,CASE WHEN mgt_place_addr_town_cd NOT LIKE'%330381%' OR mgt_place_addr_town ='' THEN NULL
+--                                       WHEN mgt_place_addr_town ='飞云望城街道' THEN '飞云街道'
+--                                       ELSE mgt_place_addr_town END mgt_place_addr_town1
+--                                 ,DzCorrectWord(prod_mgt_addr) prod_mgt_addr1
+--                                 ,CASE WHEN prod_mgt_addr_town_cd NOT LIKE'%330381%' OR prod_mgt_addr_town ='' THEN NULL
+--                                       WHEN prod_mgt_addr_town ='飞云望城街道' THEN '飞云街道'
+--                                       ELSE prod_mgt_addr_town END prod_mgt_addr_town1
+--                         FROM    stg_ra_dsj_frzh_df
+--                         ) t1
+--                 ) t2
+--         ) t3
+--         LEFT JOIN dict_ent_type d1 ON d1.type_code=t3.corp_type_cd1
+-- ;

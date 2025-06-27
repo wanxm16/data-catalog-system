@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_imp_jxj_ryqy(honor_name STRING COMMENT '规模',ent_name STRING COMMENT '企业名称',year_no STRING COMMENT '公示年度') TBLPROPERTIES ('comment'='经信局荣誉企业_导入');

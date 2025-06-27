@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_imp_jxj_mjpj(above_type STRING COMMENT '亩均规模',ent_code STRING COMMENT '企业代码',ent_name STRING COMMENT '企业名称',eval_result STRING COMMENT '评价结果',eval_year STRING COMMENT '评价年度') TBLPROPERTIES ('comment'='经信局亩均评价_导入');

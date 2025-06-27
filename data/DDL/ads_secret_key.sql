@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS ads_secret_key(project_name STRING COMMENT '项目空间',secret_type STRING COMMENT '密钥类型',secret_key STRING COMMENT '密钥值',create_date STRING COMMENT '产生日期',create_time STRING COMMENT '产生时间',ent_count STRING COMMENT '企业数量（校验用）') TBLPROPERTIES ('comment'='密钥记录表');

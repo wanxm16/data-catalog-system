@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS stg_ra_kjj_gxjsqy_df(id BIGINT COMMENT '业务库表ID',certificateno STRING COMMENT '证书编号',enterprisename STRING COMMENT '企业名称',creditcode STRING COMMENT '统一社会信用代码',awarddate DATETIME COMMENT '发证日期',city STRING COMMENT '所在市',town STRING COMMENT '所在县',cdc_dm_timestamp STRING COMMENT 'DM表数据同步时间') TBLPROPERTIES ('comment'='瑞安_科技局_省市回流高新技术企业信息');
