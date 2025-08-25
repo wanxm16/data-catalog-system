@@ -100,7 +100,11 @@ check_services() {
         echo "🟢 没有发现运行中的服务"
     fi
     
-    return $running
+    if [ "$running" = true ]; then
+        return 1
+    else
+        return 0
+    fi
 }
 
 # 主程序

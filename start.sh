@@ -126,12 +126,12 @@ start_services() {
     cd ..
     
     # 等待后端启动
-    for i in {1..15}; do
+    for i in {1..30}; do
         if curl -s http://localhost:8000/api/health >/dev/null 2>&1; then
             log_info "后端服务启动成功 (http://localhost:8000)"
             break
         fi
-        [ $i -eq 15 ] && {
+        [ $i -eq 30 ] && {
             log_error "后端服务启动失败"
             cat backend.log | tail -n 5
             cleanup

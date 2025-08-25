@@ -16,6 +16,7 @@ from models.schemas import (
 from services.table_service import TableService
 from services.ai_service import AIService
 from services.rag_service import RAGService
+from services.chatbi_service import ChatBIService
 
 # 创建FastAPI应用
 app = FastAPI(
@@ -37,6 +38,7 @@ app.add_middleware(
 table_service = TableService()
 ai_service = AIService()
 rag_service = RAGService()
+chatbi_service = ChatBIService()
 
 @app.get("/")
 async def root():
@@ -218,6 +220,36 @@ async def refresh_vector_db():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"刷新向量数据库失败: {str(e)}")
 
+@app.get("/api/chatbi/files")
+async def get_chatbi_files():
+    """获取可用的数据文件列表"""
+    try:
+        files = chatbi_service.get_available_files()
+        return {
+            "success": True,
+            "data": files
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取数据文件列表失败: {str(e)}")
+
+@app.post("/api/chatbi/analyze")
+async def analyze_chatbi_data(request: dict):
+    """数据分析接口"""
+    try:
+        filename = request.get("filename")
+        question = request.get("question")
+        
+        if not filename or not question:
+            raise HTTPException(status_code=400, detail="缺少必要参数: filename 或 question")
+        
+        result = chatbi_service.analyze_data(filename, question)
+        return result
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"数据分析失败: {str(e)}")
+
 @app.get("/api/health")
 async def health_check():
     """健康检查接口"""
@@ -226,7 +258,8 @@ async def health_check():
         "services": {
             "table_service": "running",
             "ai_service": "running", 
-            "rag_service": "running"
+            "rag_service": "running",
+            "chatbi_service": "running"
         }
     }
 

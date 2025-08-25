@@ -146,7 +146,32 @@ export class ApiService {
     const response: AxiosResponse<any> = await api.get('/health');
     return response.data;
   }
+
+  /**
+   * 获取ChatBI数据文件列表
+   */
+  static async getChatBIFiles(): Promise<ApiResponse<any[]>> {
+    const response: AxiosResponse<ApiResponse<any[]>> = await api.get('/chatbi/files');
+    return response.data;
+  }
+
+  /**
+   * ChatBI数据分析
+   * @param filename 文件名
+   * @param question 问题
+   */
+  static async analyzeChatBIData(filename: string, question: string): Promise<ApiResponse<any>> {
+    const request = { filename, question };
+    const response: AxiosResponse<ApiResponse<any>> = await api.post('/chatbi/analyze', request);
+    return response.data;
+  }
 }
+
+// ChatBI API 实例
+export const chatBIAPI = {
+  getFiles: ApiService.getChatBIFiles,
+  analyzeData: ApiService.analyzeChatBIData
+};
 
 // 为了兼容性，导出analyzeCase函数
 export const analyzeCase = ApiService.analyzeCase;

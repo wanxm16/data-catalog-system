@@ -418,17 +418,25 @@ class RAGService:
             prompt = self._build_chat_prompt(question, context)
             
             # 调用OpenAI API
-            response = self.openai_client.chat.completions.create(
-                model="gpt-4o",
-                messages=[
-                    {"role": "system", "content": "你是一个数据目录助手，专门帮助用户查询和了解数据资源信息。请根据提供的编目信息，准确回答用户的问题。"},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0.2,
-                max_tokens=1000
-            )
-            
-            answer = response.choices[0].message.content
+            try:
+                response = self.openai_client.chat.completions.create(
+                    model="gpt-4o",
+                    messages=[
+                        {"role": "system", "content": "你是一个数据目录助手，专门帮助用户查询和了解数据资源信息。请根据提供的编目信息，准确回答用户的问题。"},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.2,
+                    max_tokens=1000,
+                    timeout=30
+                )
+                
+                answer = response.choices[0].message.content
+            except Exception as openai_error:
+                logger.error(f"OpenAI API调用失败: {openai_error}")
+                # 如果OpenAI API失败，回退到基础搜索结果
+                answer = "⚠️ AI分析服务暂时不可用，以下是基于搜索的结果：\n\n"
+                answer += self._build_fallback_answer(search_results, question)
+                logger.info("已回退到基础搜索模式")
             
             # 提取引用来源
             sources = [result['metadata']['table_name_en'] for result in search_results[:3]]
@@ -461,6 +469,22 @@ class RAGService:
 请根据提供的编目信息，准确回答用户的问题。如果没有相关信息，请说明没有找到相关的数据资源。"""
         
         return prompt
+    
+    def _build_fallback_answer(self, search_results: List[Dict], question: str) -> str:
+        """构建回退答案"""
+        if not search_results:
+            return "未找到相关的数据资源信息。"
+        
+        answer = ""
+        for i, result in enumerate(search_results[:3], 1):
+            meta = result['metadata']
+            answer += f"📋 **相关数据资源 {i}**\n"
+            answer += f"- 表名：{meta['table_name_en']}\n"
+            answer += f"- 资源名称：{meta.get('resource_name', '未知')}\n"
+            answer += f"- 领域分类：{meta.get('domain_category', '未知')}\n"
+            answer += f"- 匹配度：{result['score']:.2f}\n\n"
+        
+        return answer
     
     def get_statistics(self) -> Dict[str, Any]:
         """获取统计信息"""
