@@ -65,6 +65,7 @@ const CaseAnalysis: React.FC = () => {
       const stepsToGenerate = steps.map(({ step_number, description }) => ({
         step_number,
         description
+        // sql字段现在是可选的，不需要传递
       }));
       
       const response = await ApiService.generateSQL(stepsToGenerate);

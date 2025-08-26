@@ -119,7 +119,7 @@ export interface SystemStatistics {
 export interface AnalysisStep {
   step_number: number;
   description: string;
-  sql: string;
+  sql?: string;  // SQL现在是可选的，支持分步流程
 }
 
 export interface AnalysisResult {
