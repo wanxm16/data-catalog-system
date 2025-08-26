@@ -11,7 +11,9 @@ load_dotenv()
 from models.schemas import (
     TableInfo, TableDetail, CatalogRequest, CatalogUpdateRequest,
     ChatRequest, ChatResponse, ApiResponse, CatalogInfo,
-    CaseAnalysisRequest, CaseAnalysisResponse
+    CaseAnalysisRequest, CaseAnalysisResponse,
+    CaseDecompositionRequest, CaseDecompositionResponse,
+    GenerateSQLRequest, GenerateSQLResponse
 )
 from services.table_service import TableService
 from services.ai_service import AIService
@@ -153,7 +155,7 @@ async def chat_with_catalog(request: ChatRequest):
 
 @app.post("/api/case-analysis", response_model=ApiResponse)
 async def analyze_case(request: CaseAnalysisRequest):
-    """案件分解接口"""
+    """案件分解接口（保留原有的一步到位接口）"""
     try:
         analysis_result = ai_service.analyze_case(request.case_description)
         
@@ -172,6 +174,50 @@ async def analyze_case(request: CaseAnalysisRequest):
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"案件分解失败: {str(e)}")
+
+@app.post("/api/case-decomposition", response_model=ApiResponse)
+async def decompose_case(request: CaseDecompositionRequest):
+    """案件步骤分解接口（第一步：只分解步骤，不生成SQL）"""
+    try:
+        decomposition_result = ai_service.decompose_case_steps(request.case_description)
+        
+        if decomposition_result is None:
+            return ApiResponse(
+                success=False,
+                message="案件步骤分解失败",
+                data=None
+            )
+        
+        return ApiResponse(
+            success=True,
+            message="案件步骤分解成功",
+            data=decomposition_result.dict()
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"案件步骤分解失败: {str(e)}")
+
+@app.post("/api/generate-sql", response_model=ApiResponse)
+async def generate_sql(request: GenerateSQLRequest):
+    """SQL生成接口（第二步：根据用户调整后的步骤生成SQL）"""
+    try:
+        sql_result = ai_service.generate_sql_for_steps(request.steps)
+        
+        if sql_result is None:
+            return ApiResponse(
+                success=False,
+                message="SQL生成失败",
+                data=None
+            )
+        
+        return ApiResponse(
+            success=True,
+            message="SQL生成成功",
+            data=sql_result.dict()
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"SQL生成失败: {str(e)}")
 
 @app.get("/api/statistics")
 async def get_statistics():

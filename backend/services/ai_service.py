@@ -1,7 +1,11 @@
 import os
 from openai import OpenAI
 from typing import Dict, List, Optional
-from models.schemas import CatalogInfo, DomainCategory, TableLayer, FieldInfo, SourceTableInfo, CaseAnalysisResponse, AnalysisStep
+from models.schemas import (
+    CatalogInfo, DomainCategory, TableLayer, FieldInfo, SourceTableInfo, 
+    CaseAnalysisResponse, AnalysisStep, CaseDecompositionResponse,
+    GenerateSQLRequest, GenerateSQLResponse
+)
 from services.table_service import TableService
 import json
 import re
@@ -137,6 +141,233 @@ class AIService:
                 
         except Exception as e:
             error_msg = f"案件分解失败: {str(e)}"
+            print(f"❌ {error_msg}")
+            import traceback
+            traceback.print_exc()
+            return None
+    
+    def decompose_case_steps(self, case_description: str) -> Optional[CaseDecompositionResponse]:
+        """
+        分析案件目标并分解为步骤（不生成SQL）
+        
+        Args:
+            case_description: 案件目标描述
+            
+        Returns:
+            CaseDecompositionResponse: 分解的步骤
+        """
+        try:
+            print(f"🔍 开始案件步骤分解: {case_description}")
+            
+            if not self.client:
+                error_msg = "OpenAI API Key 未配置，请设置 OPENAI_API_KEY 环境变量"
+                print(f"❌ {error_msg}")
+                raise Exception(error_msg)
+            
+            print("✅ OpenAI客户端已就绪")
+            
+            # 构建步骤分解提示词
+            prompt = f"""你是一个擅长多步任务分解的大模型办案助手。
+
+请根据以下案件目标描述，自动完成逻辑步骤分解。暂时不需要生成SQL。
+
+【案件目标描述】: {case_description}
+
+【分析要求】：
+1. 将案件目标分解为5-8个逻辑步骤
+2. 每个步骤应该有清晰的逻辑描述
+3. 步骤之间应该有逻辑递进关系
+4. 步骤描述应该清晰、具体、可执行
+
+请用以下JSON格式返回结果：
+{{
+  "summary": "案件分析总结，简要说明分析思路和目标",
+  "steps": [
+    {{
+      "step_number": 1,
+      "description": "步骤1的逻辑描述"
+    }},
+    {{
+      "step_number": 2,
+      "description": "步骤2的逻辑描述"
+    }}
+  ]
+}}
+
+【参考示例】：
+案件目标：乌鲁木齐疑似高风险偷渡人员
+
+分析步骤示例：
+1. 提取乌鲁木齐市常住人口管理中单一民族人员
+2. 基于步骤1结果提取最近一个月去过云南省的人员  
+3. 基于步骤2结果，关联最近一个月内有二手车交易行为的人员
+4. 基于步骤3的结果，提取最近三年有犯罪记录的人员
+5. 基于步骤4的结果，标注出人员户籍所属区县
+
+请参考这个示例的分析思路和步骤深度。"""
+
+            print("🤖 正在调用OpenAI API进行步骤分解...")
+            
+            # 调用OpenAI API
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "你是一个专业的案件分析助手，擅长将复杂案件目标分解为清晰的逻辑步骤。"},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.3,
+                max_tokens=2000
+            )
+            
+            print("✅ OpenAI API调用成功")
+            
+            ai_response = response.choices[0].message.content
+            print(f"📝 AI响应长度: {len(ai_response)} 字符")
+            
+            # 解析AI返回的JSON
+            json_match = re.search(r'\{.*\}', ai_response, re.DOTALL)
+            if json_match:
+                print("✅ 找到JSON格式响应")
+                result = json.loads(json_match.group())
+                
+                # 构建分析步骤（不包含SQL）
+                steps = []
+                if 'steps' in result:
+                    for step_data in result['steps']:
+                        steps.append(AnalysisStep(
+                            step_number=step_data.get('step_number', 0),
+                            description=step_data.get('description', '')
+                        ))
+                
+                # 创建响应对象
+                response = CaseDecompositionResponse(
+                    steps=steps,
+                    summary=result.get('summary', '案件分解分析')
+                )
+                
+                print(f"✅ 步骤分解完成，共{len(steps)}个步骤")
+                return response
+                
+            else:
+                error_msg = "未能从AI响应中解析出有效的JSON格式"
+                print(f"❌ {error_msg}")
+                print(f"原始响应: {ai_response[:500]}...")
+                return None
+                
+        except Exception as e:
+            error_msg = f"案件步骤分解失败: {str(e)}"
+            print(f"❌ {error_msg}")
+            import traceback
+            traceback.print_exc()
+            return None
+
+    def generate_sql_for_steps(self, steps: List[AnalysisStep]) -> Optional[GenerateSQLResponse]:
+        """
+        根据用户调整后的步骤生成SQL
+        
+        Args:
+            steps: 用户调整后的步骤列表
+            
+        Returns:
+            GenerateSQLResponse: 包含SQL的完整步骤
+        """
+        try:
+            print(f"🔍 开始为{len(steps)}个步骤生成SQL")
+            
+            if not self.client:
+                error_msg = "OpenAI API Key 未配置，请设置 OPENAI_API_KEY 环境变量"
+                print(f"❌ {error_msg}")
+                raise Exception(error_msg)
+            
+            # 构建步骤描述
+            steps_description = "\n".join([f"{step.step_number}. {step.description}" for step in steps])
+            
+            # 构建SQL生成提示词
+            prompt = f"""你是一个擅长SQL生成的大模型办案助手。
+
+请根据以下已经确定的逻辑步骤，为每个步骤生成对应的SQL语句。
+
+【已确定的逻辑步骤】：
+{steps_description}
+
+【SQL生成要求】：
+1. 为每个步骤生成对应的SQL语句
+2. SQL中使用伪字段名和伪表名，方便后续做字段替换
+3. 时间条件请尽可能用 NOW() 或者 DATE_SUB() 表达
+4. 所有字段尽量使用英文名并注释说明含义
+5. 不必考虑具体数据库类型，保持语法通用性
+6. 步骤之间的SQL应该有逻辑关联，后续步骤可以引用前面步骤的结果
+
+请用以下JSON格式返回结果：
+{{
+  "summary": "SQL生成总结，简要说明各步骤SQL的关联关系",
+  "steps": [
+    {{
+      "step_number": 1,
+      "description": "{steps[0].description if steps else '步骤描述'}",
+      "sql": "-- 步骤1对应的SQL代码\\nSELECT..."
+    }}
+  ]
+}}"""
+
+            print("🤖 正在调用OpenAI API生成SQL...")
+            
+            # 调用OpenAI API
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "你是一个专业的SQL生成助手，擅长根据业务逻辑步骤生成对应的SQL查询语句。"},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.3,
+                max_tokens=3000
+            )
+            
+            print("✅ OpenAI API调用成功")
+            
+            ai_response = response.choices[0].message.content
+            print(f"📝 AI响应长度: {len(ai_response)} 字符")
+            
+            # 解析AI返回的JSON
+            json_match = re.search(r'\{.*\}', ai_response, re.DOTALL)
+            if json_match:
+                print("✅ 找到JSON格式响应")
+                result = json.loads(json_match.group())
+                
+                # 构建包含SQL的完整步骤
+                sql_steps = []
+                if 'steps' in result:
+                    for i, step in enumerate(steps):
+                        # 找到对应的SQL
+                        sql = ""
+                        for step_data in result['steps']:
+                            if step_data.get('step_number', 0) == step.step_number:
+                                sql = step_data.get('sql', '')
+                                break
+                        
+                        sql_steps.append(AnalysisStep(
+                            step_number=step.step_number,
+                            description=step.description,
+                            sql=sql
+                        ))
+                
+                # 创建响应对象
+                response = GenerateSQLResponse(
+                    steps=sql_steps,
+                    summary=result.get('summary', 'SQL生成完成')
+                )
+                
+                print(f"✅ SQL生成完成")
+                return response
+                
+            else:
+                error_msg = "未能从AI响应中解析出有效的JSON格式"
+                print(f"❌ {error_msg}")
+                print(f"原始响应: {ai_response[:500]}...")
+                return None
+                
+        except Exception as e:
+            error_msg = f"SQL生成失败: {str(e)}"
             print(f"❌ {error_msg}")
             import traceback
             traceback.print_exc()

@@ -108,7 +108,7 @@ export class ApiService {
   }
 
   /**
-   * 案件分解
+   * 案件分解（一步到位）
    * @param caseDescription 案件描述
    */
   static async analyzeCase(caseDescription: string): Promise<AnalysisResult> {
@@ -118,6 +118,26 @@ export class ApiService {
       throw new Error('案件分解失败');
     }
     return response.data.data;
+  }
+
+  /**
+   * 案件步骤分解（第一步：只分解步骤）
+   * @param caseDescription 案件描述
+   */
+  static async decomposeCase(caseDescription: string): Promise<ApiResponse<AnalysisResult>> {
+    const request = { case_description: caseDescription };
+    const response: AxiosResponse<ApiResponse<AnalysisResult>> = await api.post('/case-decomposition', request);
+    return response.data;
+  }
+
+  /**
+   * 生成SQL（第二步：根据步骤生成SQL）
+   * @param steps 用户调整后的步骤
+   */
+  static async generateSQL(steps: AnalysisStep[]): Promise<ApiResponse<AnalysisResult>> {
+    const request = { steps };
+    const response: AxiosResponse<ApiResponse<AnalysisResult>> = await api.post('/generate-sql', request);
+    return response.data;
   }
 
   /**

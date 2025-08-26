@@ -106,7 +106,7 @@ class AnalysisStep(BaseModel):
     """分析步骤模型"""
     step_number: int
     description: str
-    sql: str
+    sql: Optional[str] = None  # SQL现在是可选的
 
 class CaseAnalysisResponse(BaseModel):
     """案件分析响应模型"""
@@ -116,6 +116,28 @@ class CaseAnalysisResponse(BaseModel):
 class CaseAnalysisRequest(BaseModel):
     """案件分析请求模型"""
     case_description: str
+
+# 步骤分解请求（第一步）
+class CaseDecompositionRequest(BaseModel):
+    """案件步骤分解请求模型"""
+    case_description: str
+
+# 步骤分解响应（第一步）
+class CaseDecompositionResponse(BaseModel):
+    """案件步骤分解响应模型"""
+    steps: List[AnalysisStep]  # 只包含step_number和description，不包含sql
+    summary: str
+
+# SQL生成请求（第二步）
+class GenerateSQLRequest(BaseModel):
+    """SQL生成请求模型"""
+    steps: List[AnalysisStep]  # 用户修改后的步骤列表
+
+# SQL生成响应（第二步）  
+class GenerateSQLResponse(BaseModel):
+    """SQL生成响应模型"""
+    steps: List[AnalysisStep]  # 包含完整的step_number, description, sql
+    summary: str
 
 class ApiResponse(BaseModel):
     """通用API响应模型"""
