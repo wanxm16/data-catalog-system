@@ -76,8 +76,16 @@ class SQLParser:
                     return comment
         
         # 方法2: 从CREATE TABLE语句后的COMMENT提取
+        # 先尝试原有的完整匹配
         create_comment_pattern = r"CREATE\s+TABLE[^(]*\([^)]*\)\s*COMMENT\s+['\"]([^'\"]*)['\"]"
         match = re.search(create_comment_pattern, sql_content, re.IGNORECASE | re.DOTALL)
+        if match:
+            return match.group(1).strip()
+        
+        # 如果完整匹配失败，尝试简化的匹配（适用于多行CREATE TABLE）
+        # 确保匹配的是表级别的COMMENT，而不是字段的COMMENT
+        simple_comment_pattern = r"\)\s*\n\s*COMMENT\s+['\"]([^'\"]*)['\"]"
+        match = re.search(simple_comment_pattern, sql_content, re.IGNORECASE | re.DOTALL)
         if match:
             return match.group(1).strip()
         
@@ -95,7 +103,7 @@ class SQLParser:
                 else:
                     return line
         
-        return "未找到表注释"
+        return "-"
     
     def _extract_fields(self, sql_content: str) -> List[FieldInfo]:
         """提取字段信息"""

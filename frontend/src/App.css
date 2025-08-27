@@ -37,6 +37,31 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
+/* 固定布局样式 */
+html, body, #root {
+  height: 100%;
+}
+
+.ant-layout {
+  height: 100vh;
+}
+
+/* 内容区域滚动 */
+.ant-layout-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* 侧边栏固定样式 */
+.ant-layout-sider-fixed {
+  position: fixed !important;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  overflow: auto;
+}
+
 .ant-layout-sider-collapsed .logo h2 {
   display: none;
 }

@@ -54,25 +54,65 @@ const TermExplanation: React.FC = () => {
       setTerms([
         {
           id: 1,
-          term: "DWD层",
-          explanation: "数据仓库明细层（Data Warehouse Detail），是对ODS层数据进行清洗、标准化、维度建模后的明细数据层。",
-          category: "数据仓库",
+          term: "涉恐人员",
+          explanation: "指涉嫌参与恐怖主义活动或与恐怖组织有关联的人员，需要重点监控和管理。",
+          category: "公安术语",
           created_at: "2024-12-27",
           updated_at: "2024-12-27"
         },
         {
           id: 2,
-          term: "ODS层",
-          explanation: "操作数据存储层（Operational Data Store），是数据仓库源系统数据的临时存储区域，保持源系统数据原貌。",
-          category: "数据仓库",
+          term: "重点人员",
+          explanation: "指因各种原因需要公安机关重点关注、管控的人员，包括涉恐、涉稳、涉毒等人员。",
+          category: "公安术语",
           created_at: "2024-12-27",
           updated_at: "2024-12-27"
         },
         {
           id: 3,
-          term: "ADS层",
-          explanation: "应用数据服务层（Application Data Service），是面向业务定制的应用数据层，直接提供给业务查询使用。",
-          category: "数据仓库",
+          term: "偷渡人员",
+          explanation: "指非法越境进出国（边）境的人员，违反了国家出入境管理法律法规。",
+          category: "公安术语",
+          created_at: "2024-12-27",
+          updated_at: "2024-12-27"
+        },
+        {
+          id: 4,
+          term: "三非人员",
+          explanation: "指非法入境、非法居留、非法就业的外国人，是出入境管理的重点对象。",
+          category: "公安术语",
+          created_at: "2024-12-27",
+          updated_at: "2024-12-27"
+        },
+        {
+          id: 5,
+          term: "实有人口",
+          explanation: "指在某一时点实际居住在某地的全部人口，包括户籍人口和流动人口。",
+          category: "人口管理",
+          created_at: "2024-12-27",
+          updated_at: "2024-12-27"
+        },
+        {
+          id: 6,
+          term: "流动人口",
+          explanation: "指离开户籍所在地到其他地区居住的人口，是人口管理的重要对象。",
+          category: "人口管理",
+          created_at: "2024-12-27",
+          updated_at: "2024-12-27"
+        },
+        {
+          id: 7,
+          term: "案件串并",
+          explanation: "指将具有关联性的多个案件进行合并侦查，提高办案效率和质量。",
+          category: "案件管理",
+          created_at: "2024-12-27",
+          updated_at: "2024-12-27"
+        },
+        {
+          id: 8,
+          term: "预警研判",
+          explanation: "基于大数据分析对可能发生的安全风险进行预测和评估，提前采取防范措施。",
+          category: "情报分析",
           created_at: "2024-12-27",
           updated_at: "2024-12-27"
         }

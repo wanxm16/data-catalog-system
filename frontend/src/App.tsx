@@ -23,14 +23,13 @@ const AppContent: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [collapsed, setCollapsed] = React.useState(false);
+  const [siderWidth, setSiderWidth] = React.useState(240);
+
+  React.useEffect(() => {
+    setSiderWidth(collapsed ? 80 : 240);
+  }, [collapsed]);
 
   const menuItems = [
-    {
-      key: 'tables',
-      icon: <DatabaseOutlined />,
-      label: '数据资源',
-      path: '/'
-    },
     {
       key: 'datasource',
       icon: <ApiOutlined />,
@@ -38,11 +37,17 @@ const AppContent: React.FC = () => {
       path: '/datasource'
     },
     {
-      key: 'chat',
-      icon: <MessageOutlined />,
-      label: '智能问答',
-      path: '/chat'
+      key: 'tables',
+      icon: <DatabaseOutlined />,
+      label: '数据资源',
+      path: '/'
     },
+    // {
+    //   key: 'chat',
+    //   icon: <MessageOutlined />,
+    //   label: '智能问答',
+    //   path: '/chat'
+    // },
     // {
     //   key: 'chatbi',
     //   icon: <LineChartOutlined />,
@@ -75,13 +80,13 @@ const AppContent: React.FC = () => {
         {
           key: 'case-library',
           icon: <ContainerOutlined />,
-          label: '案例库',
+          label: '业务逻辑',
           path: '/knowledge/case-library'
         },
         {
           key: 'business-logic',
           icon: <BulbOutlined />,
-          label: '业务逻辑解释',
+          label: '案例库',
           path: '/knowledge/business-logic'
         }
       ]
@@ -155,6 +160,7 @@ const AppContent: React.FC = () => {
         onCollapse={setCollapsed}
         theme="light"
         width={240}
+        className="ant-layout-sider-fixed"
       >
         <div className="logo">
           <h2 style={{ 
@@ -164,23 +170,34 @@ const AppContent: React.FC = () => {
             textAlign: 'center',
             color: '#1890ff'
           }}>
-            {collapsed ? 'DC' : '数据目录'}
+            {collapsed ? '公安' : '公安数据平台'}
           </h2>
         </div>
         <Menu
           theme="light"
           selectedKeys={[getCurrentKey()]}
+          defaultOpenKeys={['knowledge']}
           mode="inline"
           items={menuItems}
           onClick={handleMenuClick}
         />
       </Sider>
 
-      <Layout>
+      <Layout style={{ 
+        marginLeft: siderWidth,
+        transition: 'margin-left 0.2s'
+      }}>
         <Header style={{ 
           padding: '0 24px', 
           background: '#fff',
-          borderBottom: '1px solid #f0f0f0'
+          borderBottom: '1px solid #f0f0f0',
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          left: siderWidth,
+          zIndex: 99,
+          height: 64,
+          transition: 'left 0.2s'
         }}>
           <h1 style={{ 
             margin: 0, 
@@ -188,15 +205,20 @@ const AppContent: React.FC = () => {
             fontWeight: 500,
             color: '#262626'
           }}>
-            数据目录编目系统
+            新疆公安数据智能分析平台
           </h1>
         </Header>
 
-        <Content style={{ margin: '0 16px' }}>
+        <Content style={{ 
+          margin: '0 16px',
+          marginTop: 64,
+          overflow: 'auto',
+          height: 'calc(100vh - 64px)'
+        }}>
           <Breadcrumb 
             style={{ margin: '16px 0' }}
           >
-            <Breadcrumb.Item>数据目录编目系统</Breadcrumb.Item>
+            <Breadcrumb.Item>新疆公安数据智能分析平台</Breadcrumb.Item>
             <Breadcrumb.Item>{getBreadcrumbName()}</Breadcrumb.Item>
           </Breadcrumb>
           

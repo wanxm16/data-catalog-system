@@ -158,7 +158,7 @@ const CaseAnalysis: React.FC = () => {
 
   return (
     <div>
-      <Title level={2}>案件分解助手（交互式）</Title>
+      <Title level={2}>案件分解助手</Title>
       <Paragraph type="secondary">
         基于AI技术，分步骤进行案件分解：先分解为逻辑步骤，支持人工调整，然后生成对应的SQL查询语句。
       </Paragraph>

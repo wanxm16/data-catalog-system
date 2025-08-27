@@ -70,6 +70,30 @@ class TableService:
                     has_etl=has_etl
                 ))
         
+        # 对表进行排序，公安业务表优先显示，UNKNOWN层排在最后
+        def sort_key(table: TableInfo):
+            # 定义公安业务表的优先级
+            police_tables = {
+                'ads_population_base': 1,      # 人口基础信息表
+                'ads_key_personnel': 2,        # 重点人员管理表  
+                'ads_case_info': 3,            # 案件信息表
+                'ads_border_control': 4,       # 边境管控信息表
+                'ads_vehicle_info': 5,         # 车辆信息表
+                'ads_suspect_info': 6,         # 嫌疑人信息表
+                'ads_communication_record': 7  # 通信记录表
+            }
+            
+            # 如果是公安业务表，返回其优先级（最高优先级）
+            if table.table_name_en in police_tables:
+                return (0, police_tables[table.table_name_en])
+            # 如果是UNKNOWN层，排在最后
+            elif table.layer == 'UNKNOWN':
+                return (2, table.table_name_en)
+            # 其他表（ADS、DWD、ODS、STG等）排在中间
+            else:
+                return (1, table.table_name_en)
+        
+        tables.sort(key=sort_key)
         return tables
     
     def get_table_detail(self, table_name: str) -> Optional[TableDetail]:

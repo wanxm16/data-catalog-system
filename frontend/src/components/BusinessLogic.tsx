@@ -75,81 +75,139 @@ const BusinessLogic: React.FC = () => {
       setLogicItems([
         {
           id: 1,
-          name: "企业风险评估流程",
-          category: "风险管理",
-          description: "评估企业的综合风险等级，包括法律风险、财务风险、经营风险等多个维度",
+          name: "涉恐人员排查流程",
+          category: "反恐防范",
+          description: "基于多维度数据对涉恐人员进行识别和排查，提升反恐工作效率",
           preconditions: [
-            "企业基本信息已录入系统",
-            "相关处罚、欠税、诉讼等负面信息已更新"
+            "人员基础信息已完善",
+            "出入境记录已同步",
+            "通信数据已接入"
           ],
           steps: [
             {
               order: 1,
-              description: "收集企业基本信息",
-              tables: ["ads_enterprise_info", "ads_ent_legal_person"]
+              description: "提取目标区域人员基础信息",
+              tables: ["ads_population_base", "ads_id_card_info"]
             },
             {
               order: 2,
-              description: "查询企业负面信息",
-              tables: ["ads_nagative_penalty_dual", "ads_nagative_tax_arrears", "ads_nagative_bankruptcy"]
+              description: "分析异常出入境记录",
+              tables: ["ads_entry_exit_record", "ads_border_control"]
             },
             {
               order: 3,
-              description: "计算各维度风险分值",
-              tables: []
+              description: "关联通信行为分析",
+              tables: ["ads_communication_record", "ads_contact_network"]
             },
             {
               order: 4,
-              description: "综合评估风险等级",
+              description: "综合评估涉恐风险等级",
               tables: []
+            },
+            {
+              order: 5,
+              description: "生成重点关注人员名单",
+              tables: ["ads_key_personnel"]
             }
           ],
           outputs: [
-            "企业综合风险等级（高/中/低）",
-            "各维度风险分值",
-            "风险详情报告"
+            "涉恐风险人员清单",
+            "风险等级评估报告",
+            "重点监控建议"
           ],
-          notes: "风险评估模型需要定期更新权重参数",
+          notes: "涉恐排查需严格按照相关法律法规执行，确保数据安全",
           created_at: "2024-12-27",
           updated_at: "2024-12-27"
         },
         {
           id: 2,
-          name: "关联企业查询逻辑",
-          category: "关系分析",
-          description: "通过股权、高管、法人等多维度关系，查找企业的关联企业网络",
+          name: "偷渡人员识别分析",
+          category: "边境管控",
+          description: "通过行为轨迹、社会关系等数据识别潜在偷渡人员",
           preconditions: [
-            "企业股权信息已更新",
-            "高管人员信息已更新"
+            "边境地区人员信息已更新",
+            "车辆通行记录已同步",
+            "住宿登记信息已接入"
           ],
           steps: [
             {
               order: 1,
-              description: "查询目标企业的股东信息",
-              tables: ["ads_ent_shareholder"]
+              description: "筛选边境地区活动人员",
+              tables: ["ads_population_location", "ads_border_area"]
             },
             {
               order: 2,
-              description: "查询目标企业的高管信息",
-              tables: ["ads_ent_senior_staff"]
+              description: "分析异常车辆交易记录",
+              tables: ["ads_vehicle_trade", "ads_vehicle_info"]
             },
             {
               order: 3,
-              description: "通过股东和高管查找其他关联企业",
-              tables: ["ads_enterprise_info", "ads_people_relation"]
+              description: "检查住宿登记异常",
+              tables: ["ads_accommodation_record"]
             },
             {
               order: 4,
-              description: "构建企业关系图谱",
+              description: "关联犯罪前科记录",
+              tables: ["ads_criminal_record"]
+            },
+            {
+              order: 5,
+              description: "综合研判偷渡风险",
               tables: []
             }
           ],
           outputs: [
-            "直接关联企业列表",
-            "间接关联企业列表",
-            "企业关系图谱"
+            "疑似偷渡人员名单",
+            "风险区域分布图",
+            "预警处置建议"
           ],
-          notes: "关联深度建议不超过3层，避免数据量过大",
+          notes: "需结合实地核查验证分析结果，避免误判",
+          created_at: "2024-12-27",
+          updated_at: "2024-12-27"
+        },
+        {
+          id: 3,
+          name: "案件串并分析流程",
+          category: "刑侦分析",
+          description: "通过案件特征、作案手法、时空关系等要素进行案件串并分析",
+          preconditions: [
+            "案件基本信息已录入",
+            "现场勘查数据已整理",
+            "嫌疑人信息已收集"
+          ],
+          steps: [
+            {
+              order: 1,
+              description: "提取案件基本特征",
+              tables: ["ads_case_info", "ads_case_scene"]
+            },
+            {
+              order: 2,
+              description: "分析作案手法相似性",
+              tables: ["ads_crime_method", "ads_evidence_info"]
+            },
+            {
+              order: 3,
+              description: "计算时空关联度",
+              tables: ["ads_case_location", "ads_time_analysis"]
+            },
+            {
+              order: 4,
+              description: "嫌疑人关系网络分析",
+              tables: ["ads_suspect_info", "ads_social_relation"]
+            },
+            {
+              order: 5,
+              description: "生成串并建议",
+              tables: []
+            }
+          ],
+          outputs: [
+            "串并案件组合",
+            "相似度评分",
+            "侦查方向建议"
+          ],
+          notes: "串并分析需要专业刑侦人员参与，AI分析仅作为辅助",
           created_at: "2024-12-27",
           updated_at: "2024-12-27"
         }
@@ -256,7 +314,7 @@ const BusinessLogic: React.FC = () => {
 
   const columns = [
     {
-      title: '业务逻辑名称',
+      title: '案例库名称',
       dataIndex: 'name',
       key: 'name',
       width: '25%',
@@ -312,7 +370,7 @@ const BusinessLogic: React.FC = () => {
           </Tooltip>
           <Tooltip title="删除">
             <Popconfirm
-              title="确定要删除这个业务逻辑吗？"
+              title="确定要删除这个案例库吗？"
               onConfirm={() => handleDelete(record.id)}
               okText="确定"
               cancelText="取消"
@@ -336,7 +394,7 @@ const BusinessLogic: React.FC = () => {
         title={
           <Space>
             <BulbOutlined />
-            <span>业务逻辑解释</span>
+            <span>案例库</span>
           </Space>
         }
         extra={
@@ -353,14 +411,14 @@ const BusinessLogic: React.FC = () => {
               ))}
             </Select>
             <Input.Search
-              placeholder="搜索业务逻辑名称或描述"
+              placeholder="搜索案例库名称或描述"
               allowClear
               style={{ width: 300 }}
               prefix={<SearchOutlined />}
               onChange={(e) => setSearchText(e.target.value)}
             />
             <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
-              添加业务逻辑
+              添加案例库
             </Button>
           </Space>
         }
@@ -376,14 +434,14 @@ const BusinessLogic: React.FC = () => {
             showTotal: (total) => `共 ${total} 条记录`
           }}
           locale={{
-            emptyText: <Empty description="暂无业务逻辑数据" />
+            emptyText: <Empty description="暂无案例库数据" />
           }}
         />
       </Card>
 
       {/* 编辑/新增弹窗 */}
       <Modal
-        title={editingItem ? '编辑业务逻辑' : '添加业务逻辑'}
+        title={editingItem ? '编辑案例库' : '添加案例库'}
         open={modalVisible}
         onOk={handleModalOk}
         onCancel={() => {
@@ -401,10 +459,10 @@ const BusinessLogic: React.FC = () => {
             <Col span={16}>
               <Form.Item
                 name="name"
-                label="业务逻辑名称"
-                rules={[{ required: true, message: '请输入业务逻辑名称' }]}
+                label="案例库名称"
+                rules={[{ required: true, message: '请输入案例库名称' }]}
               >
-                <Input placeholder="请输入业务逻辑名称" />
+                <Input placeholder="请输入案例库名称" />
               </Form.Item>
             </Col>
             <Col span={8}>
@@ -423,7 +481,7 @@ const BusinessLogic: React.FC = () => {
             label="描述"
             rules={[{ required: true, message: '请输入描述' }]}
           >
-            <TextArea rows={2} placeholder="简要描述业务逻辑的目的和作用" />
+            <TextArea rows={2} placeholder="简要描述案例库的目的和作用" />
           </Form.Item>
 
           <Form.Item
@@ -497,7 +555,7 @@ const BusinessLogic: React.FC = () => {
 
       {/* 查看详情弹窗 */}
       <Modal
-        title="业务逻辑详情"
+        title="案例库详情"
         open={viewModalVisible}
         onCancel={() => setViewModalVisible(false)}
         footer={[

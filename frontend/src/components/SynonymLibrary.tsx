@@ -56,25 +56,57 @@ const SynonymLibrary: React.FC = () => {
       setSynonymGroups([
         {
           id: 1,
-          main_word: "企业",
-          synonyms: ["公司", "单位", "组织", "机构", "厂商"],
-          context: "业务主体",
+          main_word: "涉恐人员",
+          synonyms: ["恐怖分子", "涉恐嫌疑人", "反恐对象", "恐怖主义嫌疑人"],
+          context: "反恐工作",
           created_at: "2024-12-27",
           updated_at: "2024-12-27"
         },
         {
           id: 2,
-          main_word: "法人",
-          synonyms: ["法定代表人", "法人代表", "法定代表", "企业法人"],
-          context: "法律主体",
+          main_word: "偷渡",
+          synonyms: ["非法越境", "偷越国境", "非法出入境", "走私人口"],
+          context: "边境管控",
           created_at: "2024-12-27",
           updated_at: "2024-12-27"
         },
         {
           id: 3,
-          main_word: "处罚",
-          synonyms: ["处分", "惩罚", "惩处", "制裁", "处置"],
-          context: "执法行为",
+          main_word: "身份证",
+          synonyms: ["居民身份证", "二代证", "身份证件", "ID卡"],
+          context: "身份识别",
+          created_at: "2024-12-27",
+          updated_at: "2024-12-27"
+        },
+        {
+          id: 4,
+          main_word: "案件",
+          synonyms: ["刑事案件", "案子", "事件", "违法案例"],
+          context: "案件管理",
+          created_at: "2024-12-27",
+          updated_at: "2024-12-27"
+        },
+        {
+          id: 5,
+          main_word: "嫌疑人",
+          synonyms: ["犯罪嫌疑人", "疑犯", "嫌犯", "涉案人员"],
+          context: "刑侦工作",
+          created_at: "2024-12-27",
+          updated_at: "2024-12-27"
+        },
+        {
+          id: 6,
+          main_word: "户籍",
+          synonyms: ["户口", "户籍信息", "户口本", "户籍档案"],
+          context: "人口管理",
+          created_at: "2024-12-27",
+          updated_at: "2024-12-27"
+        },
+        {
+          id: 7,
+          main_word: "监控",
+          synonyms: ["视频监控", "摄像头", "监视", "电子眼"],
+          context: "技防设备",
           created_at: "2024-12-27",
           updated_at: "2024-12-27"
         }
