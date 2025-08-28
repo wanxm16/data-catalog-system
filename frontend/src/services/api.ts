@@ -185,6 +185,30 @@ export class ApiService {
     const response: AxiosResponse<ApiResponse<any>> = await api.post('/chatbi/analyze', request);
     return response.data;
   }
+
+  /**
+   * 分析案件描述清晰度
+   * @param caseDescription 案件描述
+   */
+  static async analyzeCaseClarity(caseDescription: string): Promise<ApiResponse<any>> {
+    const request = { case_description: caseDescription };
+    const response: AxiosResponse<ApiResponse<any>> = await api.post('/case-clarity', request);
+    return response.data;
+  }
+
+  /**
+   * 基于澄清回答进行案件分解
+   * @param originalDescription 原始案件描述
+   * @param clarificationAnswers 澄清问题的回答列表
+   */
+  static async decomposeWithClarification(originalDescription: string, clarificationAnswers: string[]): Promise<ApiResponse<any>> {
+    const request = { 
+      original_description: originalDescription,
+      clarification_answers: clarificationAnswers
+    };
+    const response: AxiosResponse<ApiResponse<any>> = await api.post('/case-clarification', request);
+    return response.data;
+  }
 }
 
 // ChatBI API 实例

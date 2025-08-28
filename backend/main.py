@@ -13,7 +13,7 @@ from models.schemas import (
     ChatRequest, ChatResponse, ApiResponse, CatalogInfo,
     CaseAnalysisRequest, CaseAnalysisResponse,
     CaseDecompositionRequest, CaseDecompositionResponse,
-    GenerateSQLRequest, GenerateSQLResponse
+    CaseClarificationRequest, GenerateSQLRequest, GenerateSQLResponse
 )
 from services.table_service import TableService
 from services.ai_service import AIService
@@ -175,6 +175,21 @@ async def analyze_case(request: CaseAnalysisRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"案件分解失败: {str(e)}")
 
+@app.post("/api/case-clarity", response_model=ApiResponse)
+async def analyze_case_clarity(request: CaseDecompositionRequest):
+    """分析案件描述清晰度接口"""
+    try:
+        clarity_result = ai_service.analyze_case_clarity(request.case_description)
+        
+        return ApiResponse(
+            success=True,
+            message="案件清晰度分析完成",
+            data=clarity_result
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"案件清晰度分析失败: {str(e)}")
+
 @app.post("/api/case-decomposition", response_model=ApiResponse)
 async def decompose_case(request: CaseDecompositionRequest):
     """案件步骤分解接口（第一步：只分解步骤，不生成SQL）"""
@@ -196,6 +211,31 @@ async def decompose_case(request: CaseDecompositionRequest):
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"案件步骤分解失败: {str(e)}")
+
+@app.post("/api/case-clarification", response_model=ApiResponse)
+async def decompose_case_with_clarification(request: CaseClarificationRequest):
+    """基于澄清回答进行案件分解接口"""
+    try:
+        decomposition_result = ai_service.decompose_case_with_clarification(
+            request.original_description, 
+            request.clarification_answers
+        )
+        
+        if decomposition_result is None:
+            return ApiResponse(
+                success=False,
+                message="基于澄清信息的案件分解失败",
+                data=None
+            )
+        
+        return ApiResponse(
+            success=True,
+            message="案件分解成功",
+            data=decomposition_result.dict()
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"基于澄清信息的案件分解失败: {str(e)}")
 
 @app.post("/api/generate-sql", response_model=ApiResponse)
 async def generate_sql(request: GenerateSQLRequest):

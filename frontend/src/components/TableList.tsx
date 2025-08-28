@@ -137,6 +137,7 @@ const TableList: React.FC = () => {
       title: '表中文名',
       dataIndex: 'table_name_cn',
       key: 'table_name_cn',
+      width: 200,
       ellipsis: true,
       sorter: (a, b) => a.table_name_cn.localeCompare(b.table_name_cn)
     },
@@ -192,7 +193,7 @@ const TableList: React.FC = () => {
     {
       title: '操作',
       key: 'action',
-      width: 150,
+      width: 180,
       render: (_, record) => (
         <Space size="small">
           <Button
@@ -209,7 +210,7 @@ const TableList: React.FC = () => {
             icon={<EditOutlined />}
             onClick={() => showCatalogForm(record.table_name_en)}
           >
-            编目
+            数据说明书
           </Button>
         </Space>
       )
@@ -275,7 +276,7 @@ const TableList: React.FC = () => {
           showQuickJumper: true
         }}
         size="small"
-        scroll={{ x: 1000 }}
+        scroll={{ x: 1100 }}
       />
 
       {/* 表详情抽屉 */}

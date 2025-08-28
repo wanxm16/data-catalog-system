@@ -122,6 +122,12 @@ class CaseDecompositionRequest(BaseModel):
     """案件步骤分解请求模型"""
     case_description: str
 
+# 案件澄清请求
+class CaseClarificationRequest(BaseModel):
+    """案件澄清请求模型"""
+    original_description: str
+    clarification_answers: List[str]
+
 # 步骤分解响应（第一步）
 class CaseDecompositionResponse(BaseModel):
     """案件步骤分解响应模型"""

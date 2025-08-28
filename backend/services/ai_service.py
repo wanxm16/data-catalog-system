@@ -146,6 +146,147 @@ class AIService:
             traceback.print_exc()
             return None
     
+    def analyze_case_clarity(self, case_description: str) -> dict:
+        """
+        分析案件描述的清晰度，如果不够清晰则生成澄清问题
+        
+        Args:
+            case_description: 案件目标描述
+            
+        Returns:
+            dict: 包含is_clear和clarification_questions的结果
+        """
+        try:
+            print(f"🔍 开始分析案件描述清晰度: {case_description}")
+            
+            if not self.client:
+                error_msg = "OpenAI API Key 未配置，请设置 OPENAI_API_KEY 环境变量"
+                print(f"❌ {error_msg}")
+                raise Exception(error_msg)
+            
+            # 构建清晰度分析提示词
+            prompt = f"""你是一个专业的案件分析助手。请分析以下案件描述是否足够清晰，能否直接进行案件分解。
+
+【案件描述】: {case_description}
+
+【分析标准】：
+一个清晰的案件描述应该包含：
+1. 明确的地理范围（如：乌鲁木齐、新疆等）
+2. 具体的目标人群或对象（如：偷渡人员、涉恐人员等）
+3. 相关的时间范围（如：最近一个月、三年内等）
+4. 明确的分析目标（如：识别、排查、监控等）
+
+【判断要求】：
+- 如果描述清晰具体，可以直接分解，返回 is_clear: true
+- 如果描述模糊不清，需要澄清，返回 is_clear: false 并提供澄清问题
+
+请用以下JSON格式返回结果：
+{{
+  "is_clear": true/false,
+  "reason": "判断理由",
+  "clarification_questions": [
+    "澄清问题1",
+    "澄清问题2",
+    "澄清问题3"
+  ]
+}}
+
+【澄清问题示例】：
+- "请明确具体的地理范围，是针对乌鲁木齐市还是整个新疆地区？"
+- "请说明目标时间范围，是最近一个月、三个月还是一年内的数据？"
+- "请具体说明要识别的人员特征，比如年龄段、民族、职业等？"
+- "请明确分析目的，是进行风险评估、实时监控还是历史排查？"
+
+【注意】：澄清问题应该以自然对话的方式组织，便于用户在一个文本框中统一回答。
+"""
+
+            print("🤖 正在调用OpenAI API进行清晰度分析...")
+            
+            # 调用OpenAI API
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "你是一个专业的案件分析助手，擅长判断案件描述的清晰度并提出澄清问题。"},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.3,
+                max_tokens=1000
+            )
+            
+            print("✅ OpenAI API调用成功")
+            
+            ai_response = response.choices[0].message.content
+            print(f"📝 AI响应: {ai_response}")
+            
+            # 解析JSON响应
+            import json
+            try:
+                result = json.loads(ai_response)
+                return result
+            except json.JSONDecodeError as e:
+                print(f"❌ JSON解析失败: {e}")
+                # 返回默认结果，假设需要澄清
+                return {
+                    "is_clear": False,
+                    "reason": "AI响应格式错误，建议提供更详细的案件描述",
+                    "clarification_questions": [
+                        "请提供更具体的地理范围信息",
+                        "请明确目标时间范围",
+                        "请详细描述要分析的对象特征"
+                    ]
+                }
+                
+        except Exception as e:
+            error_msg = f"案件清晰度分析失败: {str(e)}"
+            print(f"❌ {error_msg}")
+            return {
+                "is_clear": False,
+                "reason": f"分析过程出错: {str(e)}",
+                "clarification_questions": [
+                    "请提供更详细的案件描述信息",
+                    "请明确分析的具体目标和范围"
+                ]
+            }
+
+    def decompose_case_with_clarification(self, original_description: str, clarification_answers: list) -> Optional[CaseDecompositionResponse]:
+        """
+        基于原始描述和澄清回答进行案件分解
+        
+        Args:
+            original_description: 原始案件描述
+            clarification_answers: 澄清问题的回答列表
+            
+        Returns:
+            CaseDecompositionResponse: 分解的步骤
+        """
+        try:
+            print(f"🔍 开始基于澄清信息进行案件分解")
+            print(f"原始描述: {original_description}")
+            print(f"澄清回答: {clarification_answers}")
+            
+            if not self.client:
+                error_msg = "OpenAI API Key 未配置，请设置 OPENAI_API_KEY 环境变量"
+                print(f"❌ {error_msg}")
+                raise Exception(error_msg)
+            
+            # 整合原始描述和澄清信息
+            clarification_text = "\n".join([f"- {answer}" for answer in clarification_answers if answer.strip()])
+            
+            enhanced_description = f"""
+【原始案件描述】: {original_description}
+
+【补充澄清信息】:
+{clarification_text}
+"""
+            
+            # 使用增强后的描述进行分解
+            return self.decompose_case_steps(enhanced_description)
+            
+        except Exception as e:
+            error_msg = f"基于澄清信息的案件分解失败: {str(e)}"
+            print(f"❌ {error_msg}")
+            return None
+
     def decompose_case_steps(self, case_description: str) -> Optional[CaseDecompositionResponse]:
         """
         分析案件目标并分解为步骤（不生成SQL）
